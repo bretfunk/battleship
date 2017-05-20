@@ -1,3 +1,5 @@
+require 'pry'
+
 class Battleship
   def initialize
     @player = Player.new
@@ -14,8 +16,10 @@ end
 
 class Player
   attr_accessor :name
+  attr_reader :ships
   def initialize(name="Player 1")
     @name = name
+    @player_ships = {}
   end
 
   def what_is_your_name
@@ -23,12 +27,27 @@ class Player
     name_answer = gets.chomp
     return name_answer
   end
+
+  def player_shoot
+  end
+  def player_ships
+    return @player_ships
+  end
 end
 
+
 class Computer
-  attr_reader :name
+  #needs to have his own board of shots, should just add the player right away
+  attr_reader :name, :computer_ships
   def initialize
     @name = "Computer"
+    @computer_ships = {}
+  end
+  def computer_shoot
+  end
+  def computer_ships
+    #maybe return one at a time
+    return @computer_ships
   end
 end
 
@@ -58,7 +77,7 @@ class Interface
   end
 end
 
-class Board < Battleship
+class Board
   attr_accessor :game_board
   def initialize
     @game_board = {
@@ -71,15 +90,31 @@ class Board < Battleship
 
   def output(board=@game_board)
     puts "========"
-    print board["A"].values.join
-    print "\n"
-    print board["B"].values.join
-    print "\n"
-    print board["C"].values.join
-    print "\n"
-    print board["D"].values.join
-    print "\n"
+    puts ". 1 2 3 4"
+    print "A"; board["A"].values.each {|x| print " " + x}.join; print "\n"
+    print "B"; board["B"].values.each {|x| print " " + x}.join; print "\n"
+    print "C"; board["C"].values.each {|x| print " " + x}.join; print "\n"
+    print "D"; board["D"].values.each {|x| print " " + x}.join; print "\n"
     puts "========"
+  end
+
+  def random_shot
+    #could make a board_size unit here but would have to import each time
+    letter = (65 + rand(4)).chr
+    number = rand(1..4)
+    return "#{letter}#{number}"
+  end
+
+  def computer_shoot(random_shot, computer_ship)
+    #this can only be computer because the human will manually enter ships and hits
+    hit = false
+    computer_ships.each do |ship|
+      hit = true unless computer_ship != random_shot
+    end
+    return hit
+  end
+
+  def add_ship
   end
 end
 test = Battleship.new
