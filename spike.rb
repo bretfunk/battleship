@@ -6,11 +6,22 @@ class Battleship
     @board = Board.new
   end
   #upon running the program run the welcome message
+
+  def output
+    @board.output
+  end
 end
+
 class Player
   attr_accessor :name
   def initialize(name="Player 1")
     @name = name
+  end
+
+  def what_is_your_name
+    puts "What is your name?"
+    name_answer = gets.chomp
+    return name_answer
   end
 end
 
@@ -47,7 +58,7 @@ class Interface
   end
 end
 
-class Board
+class Board < Battleship
   attr_accessor :game_board
   def initialize
     @game_board = {
@@ -58,10 +69,18 @@ class Board
     }
   end
 
-  def print(board=@game_board)
-    p board
+  def output(board=@game_board)
+    puts "========"
+    print board["A"].values.join
+    print "\n"
+    print board["B"].values.join
+    print "\n"
+    print board["C"].values.join
+    print "\n"
+    print board["D"].values.join
+    print "\n"
+    puts "========"
   end
 end
-Battleship.new
-puts @board.print
-#game_board["A"].values.join
+test = Battleship.new
+test.output
