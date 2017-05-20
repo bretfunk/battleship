@@ -1,33 +1,55 @@
-=begin
-class Game
+class Battleship
+  def initialize
+    @player = Player.new
+    @computer = Computer.new
+    @interface = Interface.new
+    @board = Board.new
+  end
+  #upon running the program run the welcome message
 end
 class Player
+  attr_accessor :name
+  def initialize(name="Player 1")
+    @name = name
+  end
 end
+class Computer
+  attr_reader :name
+  def initialize
+    @name = "Computer"
+  end
+end
+class Interface
+  def wecome
+    puts "Welcome to BATTLESHIP"
+
+    puts "Would you like to (p)lay, read the (i)nstructions, or (q)uit?"
+    answer = gets.chomp.downcase
+    case answer
+      when "p" then self.play
+      when "i" then self.instructions
+      when "q" then self.quit
+    end
+  end
+
+  def play
+    puts "play"
+  end
+
+  def instructions
+    puts "instructions"
+  end
+
+  def quit
+    puts "quiting game"
+  end
+end
+
 class Board
+  attr_accessor :board
+  def initialize
+    @board = {
+      {A1: ".", A2: ".", A3: ".", A4: "."}
+
+    }
 end
-
-Game class will create a new board instance and player instance
-Most logic will be as far down as possible, smart node style
-=end
-
-=begin
-Game starts with welcome message
-player selects where the ships should go
-computer does the same in the background using random
-the visual interface puts out what things look like
-the player selects a place to hit
-the looping code looks in the hash to see if the computer has a ship there
-if so, that spot becomes a H for hit, if not it is a M for miss
-#it would be cool if I could make an explosion using different letters in that spot
-#it would be cool if there was different weapons
-#theme?  Something with music?  Star Wars.  Night at the Roxbery.
-when your ships are sunk the loop is over and the game ends
-
-=end
-
-#random number generator for shots
-#hashes within arrays or hashes within hashes?  Nodes?
-#start with a 2 x 2 board and ship size 1 to test
-#make an algorithm to change board size based on user input
-#ships with 2 or more spots must match letter or number of last placement
-#multi class
