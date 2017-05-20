@@ -13,16 +13,17 @@ class Player
     @name = name
   end
 end
+
 class Computer
   attr_reader :name
   def initialize
     @name = "Computer"
   end
 end
+
 class Interface
   def wecome
-    puts "Welcome to BATTLESHIP"
-
+    puts "Welcome to BATTLESHIP /n"
     puts "Would you like to (p)lay, read the (i)nstructions, or (q)uit?"
     answer = gets.chomp.downcase
     case answer
@@ -31,6 +32,7 @@ class Interface
       when "q" then self.quit
     end
   end
+
 
   def play
     puts "play"
@@ -46,10 +48,20 @@ class Interface
 end
 
 class Board
-  attr_accessor :board
+  attr_accessor :game_board
   def initialize
-    @board = {
-      {A1: ".", A2: ".", A3: ".", A4: "."}
-
+    @game_board = {
+      "A" => {"1" => ".", "2" => ".", "3" => ".", "4" => "."},
+      "B" => {"1" => ".", "2" => ".", "3" => ".", "4" => "."},
+      "C" => {"1" => ".", "2" => ".", "3" => ".", "4" => "."},
+      "D" => {"1" => ".", "2" => ".", "3" => ".", "4" => "."}
     }
+  end
+
+  def print(board=@game_board)
+    p board
+  end
 end
+Battleship.new
+puts @board.print
+#game_board["A"].values.join

@@ -42,3 +42,15 @@ when your ships are sunk the loop is over and the game ends
 #make an algorithm to change board size based on user input
 #ships with 2 or more spots must match letter or number of last placement
 #multi class
+
+
+  #h1 = {'h2.1' => {'foo' => 'this', 'cool' => 'guy'}, 'h2.2' => {'bar' => '2000'} }
+#   2.4.1 :001 > structure = { :a => { :b => 'foo' }}
+#  => {:a=>{:b=>"foo"}}
+# 2.4.1 :002 > structure.dig :a
+#  => {:b=>"foo"}
+# 2.4.1 :003 > structure[:a]
+#  => {:b=>"foo"}
+# 2.4.1 :004 >
+  #structure.dig :a, :b
+  #puts @board.dig :A, 1
