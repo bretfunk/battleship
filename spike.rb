@@ -32,11 +32,12 @@ class Battleship
 end
 
 class Player
-  attr_accessor :name, :player_ships
+  attr_accessor :name, :player_ships, :player_shots
   attr_reader
   def initialize(name="Player 1")
     @name = name
     @player_ships = []
+    @player_shots = []
   end
 
   def what_is_your_name
@@ -53,6 +54,7 @@ class Player
   def player_shoot
     puts "Where do you want to shoot?"
     answer = gets.chomp
+
   end
 
   def player_ships
@@ -62,15 +64,20 @@ end
 
 class Computer
   #needs to have his own board of shots, should just add the player right away
-  attr_accessor :name, :computer_board, :computer_ships
+  attr_accessor :name, :computer_board, :computer_ships, :computer_shots
   def initialize
     @name = "Computer"
     @computer_ships = []
-    @computer_board = Board.new #to track hits and misses
+    @computer_shots = []
+    @computer_board = Board.new #to track hits and misses, maybe an array is better
   end
 
   def computer_board
     @computer_board.game_board
+  end
+
+  def computer_shots
+    @computer_shots
   end
 
   def computer_output
@@ -83,32 +90,45 @@ class Computer
   end
 
   def computer_ships
-    #maybe return one at a time
-    return @computer_ships
+    @computer_ships
   end
 
-  def random_shot
+  def random_coordinate
     letter = (65 + rand(4)).chr
     number = rand(1..4)
     return "#{letter}#{number}"
   end
 
-  def computer_shoot(random_shot, computer_ship)
+  def computer_shoot(random_coordinate, computer_ship)
     #don't know if this works
     #this can only be computer because the human will manually enter ships and hits
     hit = false
     computer_ships.each do |ship|
-      hit = true unless computer_ship != random_shot
+      hit = true unless computer_ship != random_coordinate
     end
     return hit
   end
 
-  def add_ship(coordinates=random_shot, board=computer_board)
+  def add_ship(coordinates=random_coordinate, board=computer_board, current_ships=computer_ships)
     #need to add something so it doesn't go to somewhere already occupied, need to do this for the random shooter too, sometimes goes to same place
-    coordinates = random_shot
+    coordinates = random_coordinate
     board[coordinates[0]][coordinates[1]] = "S"
-    @computer_ships << coordinates
+    current_ships << coordinates
   end
+
+  def computer_ship_search(coordinates)
+ß
+  end
+
+  def add_two_unit_ship(coordinates=random_coordinate, board=computer_board, current_ships=computer_ships)
+    #until coordinates != current_ships.any? {|ship| ship !=}
+      #need to add something so it doesn't go to somewhere already occupied, need to do this for the random shooter too, sometimes goes to same place
+      coordinates = random_coordinate
+      board[coordinates[0]][coordinates[1]] = "S"
+      current_ships << coordinates
+
+  end
+
 end
 
 class Interface
@@ -140,31 +160,27 @@ class Board
   attr_accessor :game_board
   def initialize
     @game_board = {
-      "A" => {"1" => ".", "2" => ".", "3" => ".", "4" => "."},
-      "B" => {"1" => ".", "2" => ".", "3" => ".", "4" => "."},
-      "C" => {"1" => ".", "2" => ".", "3" => ".", "4" => "."},
-      "D" => {"1" => ".", "2" => ".", "3" => ".", "4" => "."}
+      "A" => {"1" => "", "2" => "", "3" => "", "4" => ""},
+      "B" => {"1" => "", "2" => "", "3" => "", "4" => ""},
+      "C" => {"1" => "", "2" => "", "3" => "", "4" => ""},
+      "D" => {"1" => "", "2" => "", "3" => "", "4" => ""}
     }
   end
 
   def output(board=@game_board)
-    puts "========="
-    puts "  1 2 3 4"
-    print "A"; board["A"].values.each {|x| print " " + x}.join; print "\n"
-    print "B"; board["B"].values.each {|x| print " " + x}.join; print "\n"
-    print "C"; board["C"].values.each {|x| print " " + x}.join; print "\n"
-    print "D"; board["D"].values.each {|x| print " " + x}.join; print "\n"
-    puts "========="
+    puts "============="
+    puts "  1  2  3  4"
+    print "A"; board["A"].values.each {|x| print "  " + x}.join; print "\n\n"
+    print "B"; board["B"].values.each {|x| print "  " + x}.join; print "\n\n"
+    print "C"; board["C"].values.each {|x| print "  " + x}.join; print "\n\n"
+    print "D"; board["D"].values.each {|x| print "  " + x}.join; print "\n"
+    puts "============="
   end
 end
 test = Battleship.new
-#puts test.output
+puts test.output
 #test.game_board["A"]["1"] = "S"
 #test.add_ship
 #puts test.computer_output
 #test.add_ship
 test2 = Computer.new
-test2.add_ship
-test2.add_ship
-puts test2.computer_output
-puts test2.computer_ships.inspect
