@@ -53,21 +53,41 @@ class Computer
     num_array.any? {|num| num == new_location[1].to_i}
   end
 
-  def ship_creator(size)
-    #until ship.length == size
-    #random plus one or minus one based on what is available and not close to a wall
-    #if location is available && location
-    ship = []
-    align_row_or_column = rand(0..1)
-    align_up_or_down = rand(0..1) * 2 - 1
-  end
-  #if ship.empty?
-  #if the location is available
-  #take that spot
-  #if ship length == 1
+  # def ship_creator(size)
+  #   ship = []
+  #   align_row_or_column = rand(0..1)
+  #   align_up_or_down = rand(0..1) * 2 - 1
+  #   #until ship array length equals size
+  #   #random number size times
+  #   #if ship any? have the same row or column are next door and avaiable
+  #   #send them to ship array
+  #   #return ship array
+  #   #else run again recursively
+  #
+  # end
+  # #if ship.empty?
+  # #if the location is available
+  # #take that spot
+  # #if ship length == 1
   def shoot
+    shot = random_coordinate
+    if available?(shot)
+      shot
+    else
+      shoot
+    end 
+  end
+
+  def ship_creator(size)
+    ship = []
+    until ship.length == size
+      random = random_coordinate
+    ship << random unless available?(random) == false || ship.include?(random)
+    end
+    p ship
   end
 
 end
 test = Computer.new
-puts test.number_next_door?("A3", "A4")
+test.ship_creator(3)
+puts test.shoot
