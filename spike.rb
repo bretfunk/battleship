@@ -1,4 +1,5 @@
 require 'pry'
+#don't need a computer board, just check against computer ships
 
 class Battleship
   def initialize
@@ -12,14 +13,30 @@ class Battleship
   def output
     @board.output
   end
+
+  def random_shot
+    @computer.random_shot
+  end
+
+  def add_ship
+    @computer.add_ship
+  end
+
+  def game_board
+    @board.game_board
+  end
+
+  # def computer_output
+  #   @computer.output
+  # end
 end
 
 class Player
   attr_accessor :name
-  attr_reader :ships
+  attr_reader :player_ships
   def initialize(name="Player 1")
     @name = name
-    @player_ships = {}
+    @player_ships = []
   end
 
   def what_is_your_name
@@ -28,32 +45,68 @@ class Player
     return name_answer
   end
 
+  def player_ship_placement
+  end
+
   def player_shoot
   end
+
   def player_ships
     return @player_ships
   end
 end
 
-
 class Computer
   #needs to have his own board of shots, should just add the player right away
-  attr_reader :name, :computer_ships
+  attr_accessor :name, :computer_board, :computer_ships
   def initialize
     @name = "Computer"
-    @computer_ships = {}
+    @computer_ships = []
+    @computer_board = Board.new #to track hits and misses
   end
-  def computer_shoot
+
+  def computer_board
+    #is this necessary?  I need to access this method
+    @computer_board.game_board
   end
+
+  def computer_output
+    #might not need this
+    @computer_board.output
+  end
+
+  def output #pick one of these two
+    @computer_board.output
+  end
+
   def computer_ships
     #maybe return one at a time
     return @computer_ships
+  end
+
+  def random_shot
+    letter = (65 + rand(4)).chr
+    number = rand(1..4)
+    return "#{letter}#{number}"
+  end
+
+  def computer_shoot(random_shot, computer_ship)
+    #this can only be computer because the human will manually enter ships and hits
+    hit = false
+    computer_ships.each do |ship|
+      hit = true unless computer_ship != random_shot
+    end
+    return hit
+  end
+
+  def add_ship(location=random_shot, board=computer_board)
+    board[location[0]][location[1]] = "S"
   end
 end
 
 class Interface
   def wecome
-    puts "Welcome to BATTLESHIP /n"
+    puts "Welcome to BATTLESHIP \n"
     puts "Would you like to (p)lay, read the (i)nstructions, or (q)uit?"
     answer = gets.chomp.downcase
     case answer
@@ -62,7 +115,6 @@ class Interface
       when "q" then self.quit
     end
   end
-
 
   def play
     puts "play"
@@ -89,33 +141,23 @@ class Board
   end
 
   def output(board=@game_board)
-    puts "========"
-    puts ". 1 2 3 4"
+    puts "========="
+    puts "  1 2 3 4"
     print "A"; board["A"].values.each {|x| print " " + x}.join; print "\n"
     print "B"; board["B"].values.each {|x| print " " + x}.join; print "\n"
     print "C"; board["C"].values.each {|x| print " " + x}.join; print "\n"
     print "D"; board["D"].values.each {|x| print " " + x}.join; print "\n"
-    puts "========"
-  end
-
-  def random_shot
-    #could make a board_size unit here but would have to import each time
-    letter = (65 + rand(4)).chr
-    number = rand(1..4)
-    return "#{letter}#{number}"
-  end
-
-  def computer_shoot(random_shot, computer_ship)
-    #this can only be computer because the human will manually enter ships and hits
-    hit = false
-    computer_ships.each do |ship|
-      hit = true unless computer_ship != random_shot
-    end
-    return hit
-  end
-
-  def add_ship
+    puts "========="
   end
 end
 test = Battleship.new
-test.output
+#puts test.output
+#test.game_board["A"]["1"] = "S"
+#test.add_ship
+#puts test.computer_output
+#test.add_ship
+test2 = Computer.new
+test2.add_ship
+test2.add_ship
+puts test2.computer_output
+puts test2.computer_ships.inspect
