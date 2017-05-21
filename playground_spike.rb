@@ -53,41 +53,54 @@ class Computer
     num_array.any? {|num| num == new_location[1].to_i}
   end
 
-  # def ship_creator(size)
-  #   ship = []
-  #   align_row_or_column = rand(0..1)
-  #   align_up_or_down = rand(0..1) * 2 - 1
-  #   #until ship array length equals size
-  #   #random number size times
-  #   #if ship any? have the same row or column are next door and avaiable
-  #   #send them to ship array
-  #   #return ship array
-  #   #else run again recursively
-  #
+  #not working for some reason, keeps having end issues
+  # def computer_shoot
+  #   shot = random_coordinate
+  #   if available?(shot)
+  #     shot
+  #   else
+  #     computer_shoot
+  #   end 
   # end
-  # #if ship.empty?
-  # #if the location is available
-  # #take that spot
-  # #if ship length == 1
-  def shoot
-    shot = random_coordinate
-    if available?(shot)
-      shot
-    else
-      shoot
-    end 
+
+  def array_close_numbers?(size, array)
+    just_numbers = []
+    array.each {|location| just_numbers << location[1].to_i}
+    just_numbers = just_numbers.sort
+    just_numbers.last - just_numbers.first == size
   end
 
-  def ship_creator(size)
+  def array_close_letters?(size, array)
+    just_letters = []
+    array.each {|location| just_letters << location[0]}
+    just_letters = array.map{ |letter| letter.ord}.sort
+    just_letters.last - just_letters.first == size
+  end
+
+  def array_same_num?(array)
+  end
+
+  def array_same_letter?(array)
+  end
+
+  def computer_ship_creator(size)
     ship = []
     until ship.length == size
       random = random_coordinate
-    ship << random unless available?(random) == false || ship.include?(random)
+      ship << random unless available?(random) == false || ship.include?(random)
     end
-    p ship
+    letter_filter = ship[0][0]
+    number_filter = ship[0][1]
+    #it is only checking for the letters since they come first in the or statement
+    if ship.all? {|location| location[0] == letter_filter} || ship.all? {|location| location[0] == number_filter}
+      return ship
+    else
+      computer_ship_creator(size)
+    end
   end
-
+#convert everything to numbers and make sure they are within size of each other
 end
+
 test = Computer.new
-test.ship_creator(3)
-puts test.shoot
+#p test.array_close_numbers?(3, ["A4", "A1", "A2", "A3"])
+p test.array_close_letters?(3, ["A", "D", "C", "B"])
