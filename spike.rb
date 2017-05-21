@@ -32,8 +32,8 @@ class Battleship
 end
 
 class Player
-  attr_accessor :name
-  attr_reader :player_ships
+  attr_accessor :name, :player_ships
+  attr_reader
   def initialize(name="Player 1")
     @name = name
     @player_ships = []
@@ -46,9 +46,13 @@ class Player
   end
 
   def player_ship_placement
+    puts "Where do you want to place your ships?"
+    answer = gets.chomp
   end
 
   def player_shoot
+    puts "Where do you want to shoot?"
+    answer = gets.chomp
   end
 
   def player_ships
@@ -66,7 +70,6 @@ class Computer
   end
 
   def computer_board
-    #is this necessary?  I need to access this method
     @computer_board.game_board
   end
 
@@ -91,6 +94,7 @@ class Computer
   end
 
   def computer_shoot(random_shot, computer_ship)
+    #don't know if this works
     #this can only be computer because the human will manually enter ships and hits
     hit = false
     computer_ships.each do |ship|
@@ -99,8 +103,11 @@ class Computer
     return hit
   end
 
-  def add_ship(location=random_shot, board=computer_board)
-    board[location[0]][location[1]] = "S"
+  def add_ship(coordinates=random_shot, board=computer_board)
+    #need to add something so it doesn't go to somewhere already occupied, need to do this for the random shooter too, sometimes goes to same place
+    coordinates = random_shot
+    board[coordinates[0]][coordinates[1]] = "S"
+    @computer_ships << coordinates
   end
 end
 
