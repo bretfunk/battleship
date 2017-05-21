@@ -54,15 +54,17 @@ class Computer
   end
 
   #not working for some reason, keeps having end issues
-  # def computer_shoot
-  #   shot = random_coordinate
-  #   if available?(shot)
-  #     shot
-  #   else
-  #     computer_shoot
-  #   end 
-  # end
+  def computer_shoot
+    shot = random_coordinate
+    if available?(shot)
+      shot
+    else
+      computer_shoot
+    end 
+  end
+end
 
+#same problem with this as with close letters
   def array_close_numbers?(size, array)
     just_numbers = []
     array.each {|location| just_numbers << location[1].to_i}
@@ -70,6 +72,7 @@ class Computer
     just_numbers.last - just_numbers.first == size
   end
 
+#"A" is 65 and "D" is 68, just subtracting one wont fix it for some reason
   def array_close_letters?(size, array)
     just_letters = []
     array.each {|location| just_letters << location[0]}
@@ -78,9 +81,11 @@ class Computer
   end
 
   def array_same_num?(array)
+    array.all? {|location| array[0][1] == location[1]}
   end
 
   def array_same_letter?(array)
+    array.all? {|location| array[0][0] == location[0]}
   end
 
   def computer_ship_creator(size)
@@ -89,18 +94,27 @@ class Computer
       random = random_coordinate
       ship << random unless available?(random) == false || ship.include?(random)
     end
-    letter_filter = ship[0][0]
-    number_filter = ship[0][1]
-    #it is only checking for the letters since they come first in the or statement
-    if ship.all? {|location| location[0] == letter_filter} || ship.all? {|location| location[0] == number_filter}
+    #need to create a random method so the or doesn't always go one way
+    #only starting with letters
+    if array_close_letters?(size, ship) && array_same_num?(ship) || array_close_numbers?(size, ship) && array_same_letter?(ship)
       return ship
     else
       computer_ship_creator(size)
     end
   end
-#convert everything to numbers and make sure they are within size of each other
 end
 
 test = Computer.new
+puts test.computer_shoot
+#p test.computer_ship_creator(2)
 #p test.array_close_numbers?(3, ["A4", "A1", "A2", "A3"])
-p test.array_close_letters?(3, ["A", "D", "C", "B"])
+#p test.array_close_letters?(3, ["A", "D", "C", "B"])
+#puts test.array_same_num?(["A1", "B1", "C1"])
+#puts test.array_same_letter?(["A1", "A2", "A3"])
+
+#to do
+#test all methods again
+#figure out why having these errors
+#figure out shoot weird end issue
+#start writing an insert method for shoot, hit and miss
+#new method for hit or miss, return true or false
