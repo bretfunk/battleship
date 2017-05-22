@@ -19,4 +19,14 @@ class Computer
     puts "============="
   end
 
+  def game_board
+    @game_board
+  end
+
+  def random_coordinate
+    letter = (65 + rand(4)).chr
+    number = rand(1..4)
+    return "#{letter}#{number}"
+  end
+
 end

@@ -35,7 +35,25 @@ class ComputerTest < Minitest::Test
     assert_equal " ", result
   end
 
+  def test_random_coordinate
+    test = Computer.new
+    result = test.random_coordinate
+    new_result = test.random_coordinate
+    refute_equal result, new_result
+  end
 
+  def test_new_random_coordinate
+    test = Computer.new
+    result = test.random_coordinate
+    new_result = test.random_coordinate
+    refute_equal result, new_result
+  end
 
+  def test_different_random_coordinate
+    test = Computer.new
+    result = test.random_coordinate
+    new_result = test.random_coordinate
+    refute_equal result, new_result
+  end
 
 end
