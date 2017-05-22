@@ -65,7 +65,7 @@ class Player
         return "Miss!"
       end
     else
-      return "Not a valid coordinates"
+      return "Not valid coordinates"
     end
   end
 
@@ -91,6 +91,29 @@ class Player
     array.all? {|coordinates| array[0][0] == coordinates[0]}
   end
 
-#still need to add methods like ship inserter
+  def all_coordinates_avaiable?(array)
+    array.all? {|coordinates| self.available?(coordinates)}
+  end
+
+  def ship_inserter(array, board=game_board)
+    array.each {|position| board[position[0]][position[1]] = "S"}
+  end
+
+  def player_ship_request(size, request)
+    if ship_creator_filter(size, request) && all_coordinates_avaiable?(request)
+        ship_inserter(request)
+    else
+      return "Not valid coordinates"
+    end
+  end
+
+  def ship_creator_filter(size, ship)
+    if (close_letters?(size, ship) && same_num?(ship)) || (close_numbers?(size, ship) && same_letter?(ship))
+      true
+    else
+      false
+    end
+  end
+
 
 end

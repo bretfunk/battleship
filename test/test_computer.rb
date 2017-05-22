@@ -152,7 +152,7 @@ class ComputerTest < Minitest::Test
 
   def test_new_ship_inserter
     test = Computer.new
-    test.ship_inserter(["D41"])
+    test.ship_inserter(["D4"])
     result = test.game_board["D"]["4"]
     assert_equal "S", result
   end

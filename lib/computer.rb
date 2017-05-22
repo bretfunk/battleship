@@ -56,7 +56,7 @@ class Computer
     ship_creator_filter(size, ship) ? ship_inserter(ship) : computer_ship_creator(size)
   end
 
-  def ship_creator_filter(size, ship, num=num)
+  def ship_creator_filter(size, ship)
     num = rand(1..2)
     if num == 1 && (close_letters?(size, ship) && same_num?(ship))
       true
