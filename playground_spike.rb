@@ -56,33 +56,33 @@ class Computer
     end
   end
 
-  def array_close_numbers?(size, array)
+  def close_numbers?(size, array)
     just_numbers = []
     array.each {|location| just_numbers << location[1].to_i}
     just_numbers = just_numbers.sort
     just_numbers.last - just_numbers.first == size - 1
   end
 
-  def array_close_letters?(size, array)
+  def close_letters?(size, array)
     just_letters = []
     array.each {|location| just_letters << location[0]}
     just_letters = array.map{ |letter| letter.ord}.sort
     just_letters.last - just_letters.first == size - 1
   end
 
-  def array_same_num?(array)
+  def same_num?(array)
     array.all? {|location| array[0][1] == location[1]}
   end
 
-  def array_same_letter?(array)
+  def same_letter?(array)
     array.all? {|location| array[0][0] == location[0]}
   end
 
   def ship_creator_filter(size, ship)
     num = rand(1..2)
-    if num == 1 && (array_close_letters?(size, ship) && array_same_num?(ship))
+    if num == 1 && (close_letters?(size, ship) && same_num?(ship))
       true
-    elsif num == 2 && (array_close_numbers?(size, ship) && array_same_letter?(ship))
+    elsif num == 2 && (close_numbers?(size, ship) && same_letter?(ship))
       true
     else
       false
