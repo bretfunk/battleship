@@ -35,7 +35,7 @@ class ComputerTest < Minitest::Test
     assert_equal " ", result
   end
 
-  def test_random_coordinate
+  def test_random_coordinate #is possible to fail this
     test = Computer.new
     result = test.random_coordinate
     new_result = test.random_coordinate
@@ -162,6 +162,24 @@ class ComputerTest < Minitest::Test
     test.ship_inserter(["B2"])
     result = test.game_board["B"]["2"]
     assert_equal "S", result
+  end
+
+  def test_hit_or_miss_inserter #this won't work when boards change
+    test = Computer.new
+    result = test.hit_miss_inserter
+    assert_equal "M", result
+  end
+
+  def test_new_hit_or_miss_inserter
+    test = Computer.new
+    result = test.hit_miss_inserter
+    assert_equal "M", result
+  end
+
+  def test_different_hit_or_miss_inserter
+    test = Computer.new
+    result = test.hit_miss_inserter
+    assert_equal "M", result
   end
 
 end

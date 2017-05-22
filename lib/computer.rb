@@ -9,7 +9,8 @@ class Computer
   }
   end
 
-  def output(board=@game_board) #don't know if this will go in Computer, maybe board
+#maybe this should be in board and not computer
+  def output(board=@game_board)
     puts "============="
     puts "   1  2  3  4"
     print "A"; board["A"].values.each {|x| print "  " + x}.join; print "\n\n"
@@ -90,6 +91,18 @@ class Computer
 
   def ship_inserter(array, board=game_board)
     array.each {|position| board[position[0]][position[1]] = "S"}
+  end
+
+#need to change this board to players's board
+#or move methods to a shared space so both can use
+#if so need to change tests too
+  def hit_miss_inserter(board=game_board)
+    shot = computer_shoot
+    if ship_hit?(shot) == true
+      board[shot[0]][shot[1]] = "H"
+    else
+      board[shot[0]][shot[1]] = "M"
+    end
   end
 
 end
