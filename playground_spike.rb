@@ -2,16 +2,16 @@ class Computer
   attr_accessor :game_board, :full_game_board #for testing
   def initialize
   @game_board = {
-    "A" => {"1" => "H", "2" => "", "3" => "", "4" => ""},
-    "B" => {"1" => "", "2" => "", "3" => "", "4" => ""},
-    "C" => {"1" => "", "2" => "", "3" => "", "4" => ""},
-    "D" => {"1" => "", "2" => "", "3" => "", "4" => ""}
+    "A" => {"1" => " ", "2" => " ", "3" => " ", "4" => " "},
+    "B" => {"1" => " ", "2" => " ", "3" => " ", "4" => " "},
+    "C" => {"1" => " ", "2" => " ", "3" => " ", "4" => " "},
+    "D" => {"1" => " ", "2" => " ", "3" => " ", "4" => " "}
   }
   @full_game_board = { #for testing
-    "A" => {"1" => "H", "2" => "H", "3" => "H", "4" => "H"},
-    "B" => {"1" => "H", "2" => "H", "3" => "H", "4" => "H"},
-    "C" => {"1" => "H", "2" => "H", "3" => "H", "4" => "H"},
-    "D" => {"1" => "H", "2" => "H", "3" => "H", "4" => "H"}
+    "A" => {"1" => "S", "2" => "S", "3" => "S", "4" => "S"},
+    "B" => {"1" => "S", "2" => "S", "3" => "S", "4" => "S"},
+    "C" => {"1" => "S", "2" => "S", "3" => "S", "4" => "S"},
+    "D" => {"1" => "S", "2" => "S", "3" => "S", "4" => "S"}
   }
   end
 
@@ -40,22 +40,12 @@ class Computer
   end
 
   def available?(coordinate, board=game_board)
-    board[coordinate[0]][coordinate[1]].empty?
+    board[coordinate[0]][coordinate[1]] == " "
   end
 
-  def hit?(coordinate, board=game_board)
-    board[coordinate[0]][coordinate[1]] == "H"
+  def ship_hit?(coordinate, board=game_board) #make sure you use the correct board
+    board[coordinate[0]][coordinate[1]] == "S"
   end
-
-  # def letter_next_door?(original, new_location)
-  #   letter_array = [original[0].ord + 1, original[0].ord - 1]
-  #   letter_array.any? {|letter| letter == new_location[0].ord}
-  # end
-  #
-  # def number_next_door?(original, new_location)
-  #   num_array = [original[1].to_i + 1, original[1].to_i - 1]
-  #   num_array.any? {|num| num == new_location[1].to_i}
-  # end
 
   def computer_shoot
     shot = random_coordinate
@@ -63,9 +53,8 @@ class Computer
       shot
     else
       computer_shoot
-    end 
+    end
   end
-end
 
   def array_close_numbers?(size, array)
     just_numbers = []
@@ -92,11 +81,11 @@ end
   def ship_creator_filter(size, ship)
     num = rand(1..2)
     if num == 1 && (array_close_letters?(size, ship) && array_same_num?(ship))
-      return true
+      true
     elsif num == 2 && (array_close_numbers?(size, ship) && array_same_letter?(ship))
-      return true
+      true
     else
-      return false
+      false
     end
   end
 
@@ -108,24 +97,17 @@ end
     end
     ship_creator_filter(size, ship) ? ship_inserter(ship) : computer_ship_creator(size)
   end
+
+  def ship_inserter(array, board=game_board)
+    array.each {|position| board[position[0]][position[1]] = "S"}
+  end
+
+  def hit_miss_inserter(board=game_board) #using computer gameboard for testing purposes
+    shot = computer_shoot
+    if ship_hit?(shot) == true
+      board[shot[0]][shot[1]] = "H"
+    else
+      board[shot[0]][shot[1]] = "M"
+    end
+  end
 end
-
-def ship_inserter(array, board=game_board)
-  array.each {|position| board[position[0]][position[1]] = "S"}
-end
-
-test = Computer.new
-test.computer_ship_creator(3)
-test.computer_ship_creator(2)
-puts test.output
-#puts  test.hit?("A1")
-#puts test.computer_shoot
-#p test.computer_ship_creator()
-#p test.array_close_numbers?(3, ["A1", "A2", "A3"])
-#p test.array_close_letters?(3, ["A", "D", "C", "B"])
-#puts test.array_same_num?(["A1", "B1", "C1"])
-#puts test.array_same_letter?(["A1", "A2", "A3"])
-
-#to do
-#start writing an insert method for shoot, hit and miss
-#new method for hit or miss, return true or false

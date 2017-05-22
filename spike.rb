@@ -63,34 +63,38 @@ class Player
 end
 
 class Computer
-  #needs to have his own board of shots, should just add the player right away
-  attr_accessor :name, :computer_board, :computer_ships, :computer_shots
+  attr_accessor :game_board, :full_game_board #for testing
   def initialize
-    @name = "Computer"
-    @computer_ships = []
-    @computer_shots = []
-    @computer_board = Board.new #to track hits and misses, maybe an array is better
+  @game_board = {
+    "A" => {"1" => " ", "2" => " ", "3" => " ", "4" => " "},
+    "B" => {"1" => " ", "2" => " ", "3" => " ", "4" => " "},
+    "C" => {"1" => " ", "2" => " ", "3" => " ", "4" => " "},
+    "D" => {"1" => " ", "2" => " ", "3" => " ", "4" => " "}
+  }
+  @full_game_board = { #for testing
+    "A" => {"1" => "S", "2" => "S", "3" => "S", "4" => "S"},
+    "B" => {"1" => "S", "2" => "S", "3" => "S", "4" => "S"},
+    "C" => {"1" => "S", "2" => "S", "3" => "S", "4" => "S"},
+    "D" => {"1" => "S", "2" => "S", "3" => "S", "4" => "S"}
+  }
   end
 
-  def computer_board
-    @computer_board.game_board
+  def output(board=@game_board)
+    puts "============="
+    puts "   1  2  3  4"
+    print "A"; board["A"].values.each {|x| print "  " + x}.join; print "\n\n"
+    print "B"; board["B"].values.each {|x| print "  " + x}.join; print "\n\n"
+    print "C"; board["C"].values.each {|x| print "  " + x}.join; print "\n\n"
+    print "D"; board["D"].values.each {|x| print "  " + x}.join; print "\n"
+    puts "============="
   end
 
-  def computer_shots
-    @computer_shots
+  def game_board
+    @game_board
   end
 
-  def computer_output
-    #might not need this
-    @computer_board.output
-  end
-
-  def output #pick one of these two
-    @computer_board.output
-  end
-
-  def computer_ships
-    @computer_ships
+  def full_game_board #for testing
+    @full_game_board
   end
 
   def random_coordinate
@@ -99,36 +103,77 @@ class Computer
     return "#{letter}#{number}"
   end
 
-  def computer_shoot(random_coordinate, computer_ship)
-    #don't know if this works
-    #this can only be computer because the human will manually enter ships and hits
-    hit = false
-    computer_ships.each do |ship|
-      hit = true unless computer_ship != random_coordinate
+  def available?(coordinate, board=game_board)
+    board[coordinate[0]][coordinate[1]] == " "
+  end
+
+  def ship_hit?(coordinate, board=game_board) #make sure you use the correct board
+    board[coordinate[0]][coordinate[1]] == "S"
+  end
+
+  def computer_shoot
+    shot = random_coordinate
+    if available?(shot)
+      shot
+    else
+      computer_shoot
     end
-    return hit
   end
 
-  def add_ship(coordinates=random_coordinate, board=computer_board, current_ships=computer_ships)
-    #need to add something so it doesn't go to somewhere already occupied, need to do this for the random shooter too, sometimes goes to same place
-    coordinates = random_coordinate
-    board[coordinates[0]][coordinates[1]] = "S"
-    current_ships << coordinates
+  def array_close_numbers?(size, array)
+    just_numbers = []
+    array.each {|location| just_numbers << location[1].to_i}
+    just_numbers = just_numbers.sort
+    just_numbers.last - just_numbers.first == size - 1
   end
 
-  def computer_ship_search(coordinates)
-ß
+  def array_close_letters?(size, array)
+    just_letters = []
+    array.each {|location| just_letters << location[0]}
+    just_letters = array.map{ |letter| letter.ord}.sort
+    just_letters.last - just_letters.first == size - 1
   end
 
-  def add_two_unit_ship(coordinates=random_coordinate, board=computer_board, current_ships=computer_ships)
-    #until coordinates != current_ships.any? {|ship| ship !=}
-      #need to add something so it doesn't go to somewhere already occupied, need to do this for the random shooter too, sometimes goes to same place
-      coordinates = random_coordinate
-      board[coordinates[0]][coordinates[1]] = "S"
-      current_ships << coordinates
-
+  def array_same_num?(array)
+    array.all? {|location| array[0][1] == location[1]}
   end
 
+  def array_same_letter?(array)
+    array.all? {|location| array[0][0] == location[0]}
+  end
+
+  def ship_creator_filter(size, ship)
+    num = rand(1..2)
+    if num == 1 && (array_close_letters?(size, ship) && array_same_num?(ship))
+      true
+    elsif num == 2 && (array_close_numbers?(size, ship) && array_same_letter?(ship))
+      true
+    else
+      false
+    end
+  end
+
+  def computer_ship_creator(size)
+    ship = []
+    until ship.length == size
+      random = random_coordinate
+      ship << random unless available?(random) == false || ship.include?(random)
+    end
+    ship_creator_filter(size, ship) ? ship_inserter(ship) : computer_ship_creator(size)
+  end
+
+  def ship_inserter(array, board=game_board)
+    array.each {|position| board[position[0]][position[1]] = "S"}
+  end
+
+  def hit_miss_inserter(board=game_board) #using computer gameboard for testing purposes
+    shot = computer_shoot
+    if ship_hit?(shot) == true
+      board[shot[0]][shot[1]] = "H"
+    else
+      board[shot[0]][shot[1]] = "M"
+    end
+  end
 end
 
 class Interface
@@ -160,10 +205,10 @@ class Board
   attr_accessor :game_board
   def initialize
     @game_board = {
-      "A" => {"1" => "", "2" => "", "3" => "", "4" => ""},
-      "B" => {"1" => "", "2" => "", "3" => "", "4" => ""},
-      "C" => {"1" => "", "2" => "", "3" => "", "4" => ""},
-      "D" => {"1" => "", "2" => "", "3" => "", "4" => ""}
+      "A" => {"1" => " ", "2" => " ", "3" => " ", "4" => " "},
+      "B" => {"1" => " ", "2" => " ", "3" => " ", "4" => " "},
+      "C" => {"1" => " ", "2" => " ", "3" => " ", "4" => " "},
+      "D" => {"1" => " ", "2" => " ", "3" => " ", "4" => " "}
     }
   end
 
@@ -177,10 +222,6 @@ class Board
     puts "============="
   end
 end
-test = Battleship.new
-puts test.output
-#test.game_board["A"]["1"] = "S"
-#test.add_ship
-#puts test.computer_output
-#test.add_ship
-test2 = Computer.new
+
+test = Computer.new
+puts test.random_coordinate
