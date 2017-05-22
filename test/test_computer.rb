@@ -17,19 +17,19 @@ class ComputerTest < Minitest::Test
     assert_equal false, result
   end
 
-  def test_game_board_location
+  def test_game_board_coordinates
     test = Computer.new
     result = test.game_board["A"]["1"]
     assert_equal " ", result
   end
 
-  def test_another_game_board_location
+  def test_another_game_board_coordinates
     test = Computer.new
     result = test.game_board["B"]["2"]
     assert_equal " ", result
   end
 
-  def test_yet_another_game_board_location
+  def test_yet_another_game_board_coordinates
     test = Computer.new
     result = test.game_board["C"]["3"]
     assert_equal " ", result
@@ -42,34 +42,34 @@ class ComputerTest < Minitest::Test
     refute_equal result, new_result
   end
 
-  def test_location_avaiable
+  def test_coordinates_avaiable
     test = Computer.new
     result = test.available?("A1")
     assert_equal true, result
   end
 
-  def test_location_avaiable_miss
+  def test_coordinates_avaiable_miss
     test = Computer.new
     test.game_board["A"]["1"] = "M"
     result = test.available?("A1")
     assert_equal false, result
   end
 
-  def test_location_avaiable_hit
+  def test_coordinates_avaiable_hit
     test = Computer.new
     test.game_board["A"]["1"] = "H"
     result = test.available?("A1")
     assert_equal false, result
   end
 
-  def test_location_hit
+  def test_coordinates_hit
     test = Computer.new
     test.game_board["B"]["2"] = "S"
     result = test.ship_hit?("B2")
     assert_equal true, result
   end
 
-  def test_location_not_hit
+  def test_coordinates_not_hit
     test = Computer.new
     test.game_board["B"]["2"] = " "
     result = test.ship_hit?("B2")
@@ -78,12 +78,12 @@ class ComputerTest < Minitest::Test
 
   def test_computer_shoot
     test = Computer.new
-    location = test.computer_shoot
-    result = test.available?(location)
+    coordinates = test.computer_shoot
+    result = test.available?(coordinates)
     assert_equal true, result
   end
 
-  def test_close_numbers #work on this, ship size 2
+  def test_close_numbers
     test = Computer.new
     result = test.close_numbers?(3, ["A2", "A3", "A4"])
     assert_equal true, result

@@ -47,28 +47,6 @@ class Computer
     end
   end
 
-  def close_numbers?(size, array)
-    just_numbers = []
-    array.each {|location| just_numbers << location[1].to_i}
-    just_numbers = just_numbers.sort
-    just_numbers.last - just_numbers.first == size - 1
-  end
-
-  def close_letters?(size, array)
-    just_letters = []
-    array.each {|location| just_letters << location[0]}
-    just_letters = array.map{ |letter| letter.ord}.sort
-    just_letters.last - just_letters.first == size - 1
-  end
-
-  def same_num?(array)
-    array.all? {|location| array[0][1] == location[1]}
-  end
-
-  def same_letter?(array)
-    array.all? {|location| array[0][0] == location[0]}
-  end
-
   def computer_ship_creator(size)
     ship = []
     until ship.length == size
@@ -103,6 +81,28 @@ class Computer
     else
       board[shot[0]][shot[1]] = "M"
     end
+  end
+
+  def close_numbers?(size, array)
+    just_numbers = []
+    array.each {|coordinates| just_numbers << coordinates[1].to_i}
+    just_numbers = just_numbers.sort
+    just_numbers.last - just_numbers.first == size - 1
+  end
+
+  def close_letters?(size, array)
+    just_letters = []
+    array.each {|coordinates| just_letters << coordinates[0]}
+    just_letters = array.map{ |letter| letter.ord}.sort
+    just_letters.last - just_letters.first == size - 1
+  end
+
+  def same_num?(array)
+    array.all? {|coordinates| array[0][1] == coordinates[1]}
+  end
+
+  def same_letter?(array)
+    array.all? {|coordinates| array[0][0] == coordinates[0]}
   end
 
 end

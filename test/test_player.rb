@@ -24,6 +24,13 @@ class PlayerTest < Minitest::Test
     assert_equal true, result
   end
 
+  def test_not_available
+    test = Player.new
+    test.game_board["A"]["1"] = "M"
+    result = test.available?("A1")
+    assert_equal false, result
+  end
+
   def test_ship_hit_without_ship
     test = Player.new
     result = test.ship_hit?("A1")
@@ -38,6 +45,8 @@ class PlayerTest < Minitest::Test
   end
 
   def test_player_shoot_with_hit #might have to change puts for return
+    #testing own game board
+    skip
     test = Player.new
     test.game_board["A"]["1"] = "S"
     result = test.player_shoot("A1")
@@ -51,11 +60,60 @@ class PlayerTest < Minitest::Test
     assert_equal "Miss!", result
   end
 
-  def test_player_shoot_with_invalid_location
+  def test_player_shoot_with_invalid_coordinates
     test = Player.new
     test.game_board["A"]["1"] = "M"
     result = test.player_shoot("A1")
-    assert_equal "Not a valid location", result
+    assert_equal "Not a valid coordinates", result
   end
+
+  def test_close_numbers #work on this, ship size 2
+    test = Player.new
+    result = test.close_numbers?(3, ["A2", "A3", "A4"])
+    assert_equal true, result
+  end
+
+  def test_not_close_numbers
+    test = Player.new
+    result = test.close_numbers?(3, ["B8", "B2", "B6"])
+    refute_equal true, result
+  end
+
+  def test_close_letters
+    test = Player.new
+    result = test.close_letters?(3, ["C1", "A1", "B1"])
+    assert_equal true, result
+  end
+
+  def test_not_close_letters
+    test = Player.new
+    result = test.close_letters?(3, ["C3", "F3", "B3"])
+    refute_equal true, result
+  end
+
+  def test_same_num
+    test = Player.new
+    result = test.same_num?(["F1", "G1", "D1"])
+    assert_equal true, result
+  end
+
+  def test_not_same_num
+    test = Player.new
+    result = test.same_num?(["F1", "G2", "D3"])
+    refute_equal true, result
+  end
+
+  def test_same_letter
+    test = Player.new
+    result = test.same_letter?(["F1", "F9", "F6"])
+    assert_equal true, result
+  end
+
+  def test_not_same_letter
+    test = Player.new
+    result = test.same_letter?(["F1", "D9", "F6"])
+    refute_equal true, result
+  end
+
 
 end
