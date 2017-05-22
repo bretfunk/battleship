@@ -29,4 +29,12 @@ class Computer
     return "#{letter}#{number}"
   end
 
+  def available?(coordinate, board=game_board)
+    board[coordinate[0]][coordinate[1]] == " "
+  end
+
+  def ship_hit?(coordinate, board=game_board)
+    board[coordinate[0]][coordinate[1]] == "S"
+  end
+
 end

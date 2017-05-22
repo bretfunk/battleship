@@ -49,11 +49,38 @@ class ComputerTest < Minitest::Test
     refute_equal result, new_result
   end
 
-  def test_different_random_coordinate
+  def test_location_avaiable
     test = Computer.new
-    result = test.random_coordinate
-    new_result = test.random_coordinate
-    refute_equal result, new_result
+    result = test.available?("A1")
+    assert_equal true, result
+  end
+
+  def test_location_avaiable_miss
+    test = Computer.new
+    test.game_board["A"]["1"] = "M"
+    result = test.available?("A1")
+    assert_equal false, result
+  end
+
+  def test_location_avaiable_hit
+    test = Computer.new
+    test.game_board["A"]["1"] = "H"
+    result = test.available?("A1")
+    assert_equal false, result
+  end
+
+  def test_location_hit
+    test = Computer.new
+    test.game_board["B"]["2"] = "S"
+    result = test.ship_hit?("B2")
+    assert_equal true, result
+  end
+
+  def test_location_not_hit
+    test = Computer.new
+    test.game_board["B"]["2"] = " "
+    result = test.ship_hit?("B2")
+    assert_equal false, result
   end
 
 end
