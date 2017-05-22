@@ -39,7 +39,7 @@ class Player
     @player_ships = []
     @player_shots = []
   end
-
+#don't need player ships and shots anymore, I will use the hash
   def what_is_your_name
     puts "What is your name?"
     name_answer = gets.chomp
@@ -169,7 +169,7 @@ class Board
 
   def output(board=@game_board)
     puts "============="
-    puts "  1  2  3  4"
+    puts "   1  2  3  4"
     print "A"; board["A"].values.each {|x| print "  " + x}.join; print "\n\n"
     print "B"; board["B"].values.each {|x| print "  " + x}.join; print "\n\n"
     print "C"; board["C"].values.each {|x| print "  " + x}.join; print "\n\n"

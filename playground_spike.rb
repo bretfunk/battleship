@@ -17,7 +17,7 @@ class Computer
 
   def output(board=@game_board)
     puts "============="
-    puts "  1  2  3  4"
+    puts "   1  2  3  4"
     print "A"; board["A"].values.each {|x| print "  " + x}.join; print "\n\n"
     print "B"; board["B"].values.each {|x| print "  " + x}.join; print "\n\n"
     print "C"; board["C"].values.each {|x| print "  " + x}.join; print "\n\n"
@@ -106,15 +106,19 @@ end
       random = random_coordinate
       ship << random unless available?(random) == false || ship.include?(random)
     end
-    ship_creator_filter(size, ship) ? ship : computer_ship_creator(size)
+    ship_creator_filter(size, ship) ? ship_inserter(ship) : computer_ship_creator(size)
   end
 end
 
-def ship_inserter(array)
+def ship_inserter(array, board=game_board)
+  array.each {|position| board[position[0]][position[1]] = "S"}
 end
 
 test = Computer.new
-puts  test.hit?("A1")
+test.computer_ship_creator(3)
+test.computer_ship_creator(2)
+puts test.output
+#puts  test.hit?("A1")
 #puts test.computer_shoot
 #p test.computer_ship_creator()
 #p test.array_close_numbers?(3, ["A1", "A2", "A3"])
