@@ -45,7 +45,7 @@ class PlayerTest < Minitest::Test
 
   def test_player_shoot_with_hit #might have to change puts for return
     #testing own game board
-    #skip
+    skip
     test = Player.new
     test.game_board["A"]["1"] = "S"
     result = test.player_shoot("A1")

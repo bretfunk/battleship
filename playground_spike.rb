@@ -1,4 +1,15 @@
 class Player
+  def initialize
+    @root = Board.new
+  end
+
+  def root
+    @root
+  end
+
+end
+
+class Board
   attr_accessor :game_board, :full_game_board #for testing
   def initialize
   @game_board = {
@@ -61,3 +72,6 @@ class Player
     end
   end
 end
+
+test = Player.new
+test.root.output
