@@ -130,4 +130,38 @@ class ComputerTest < Minitest::Test
     result = test.same_letter?(["F1", "D9", "F6"])
     refute_equal true, result
   end
+
+  def test_computer_ship_creator_two
+    test = Computer.new
+    result = test.computer_ship_creator(2)
+    assert_equal 2, result.length
+  end
+
+  def test_computer_ship_creator_four
+    test = Computer.new
+    result = test.computer_ship_creator(4)
+    assert_equal 4, result.length
+  end
+
+  def test_ship_inserter
+    test = Computer.new
+    test.ship_inserter(["A1"])
+    result = test.game_board["A"]["1"]
+    assert_equal "S", result
+  end
+
+  def test_new_ship_inserter
+    test = Computer.new
+    test.ship_inserter(["D41"])
+    result = test.game_board["D"]["4"]
+    assert_equal "S", result
+  end
+
+  def test_different_ship_inserter
+    test = Computer.new
+    test.ship_inserter(["B2"])
+    result = test.game_board["B"]["2"]
+    assert_equal "S", result
+  end
+
 end

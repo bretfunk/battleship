@@ -68,4 +68,28 @@ class Computer
     array.all? {|location| array[0][0] == location[0]}
   end
 
+  def computer_ship_creator(size)
+    ship = []
+    until ship.length == size
+      random = random_coordinate
+      ship << random unless available?(random) == false || ship.include?(random)
+    end
+    ship_creator_filter(size, ship) ? ship_inserter(ship) : computer_ship_creator(size)
+  end
+
+  def ship_creator_filter(size, ship, num=num)
+    num = rand(1..2)
+    if num == 1 && (close_letters?(size, ship) && same_num?(ship))
+      true
+    elsif num == 2 && (close_numbers?(size, ship) && same_letter?(ship))
+      true
+    else
+      false
+    end
+  end
+
+  def ship_inserter(array, board=game_board)
+    array.each {|position| board[position[0]][position[1]] = "S"}
+  end
+
 end
