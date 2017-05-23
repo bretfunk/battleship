@@ -1,27 +1,14 @@
+require './lib/board'
+require './lib/player'
+
 class Computer
-  attr_accessor :game_board
+  attr_accessor :computer_board
   def initialize
-  @game_board = {
-    "A" => {"1" => " ", "2" => " ", "3" => " ", "4" => " "},
-    "B" => {"1" => " ", "2" => " ", "3" => " ", "4" => " "},
-    "C" => {"1" => " ", "2" => " ", "3" => " ", "4" => " "},
-    "D" => {"1" => " ", "2" => " ", "3" => " ", "4" => " "}
-  }
+  @computer_board = Board.new
   end
 
-#maybe this should be in board and not computer
-  def output(board=@game_board)
-    puts "============="
-    puts "   1  2  3  4"
-    print "A"; board["A"].values.each {|x| print "  " + x}.join; print "\n\n"
-    print "B"; board["B"].values.each {|x| print "  " + x}.join; print "\n\n"
-    print "C"; board["C"].values.each {|x| print "  " + x}.join; print "\n\n"
-    print "D"; board["D"].values.each {|x| print "  " + x}.join; print "\n"
-    puts "============="
-  end
-
-  def game_board
-    @game_board
+  def computer_board
+    @computer_board
   end
 
   def random_coordinate
@@ -30,17 +17,21 @@ class Computer
     return "#{letter}#{number}"
   end
 
-  def available?(coordinate, board=game_board)
+  def computer_board_available?(coordinate, board=computer_board.computer_board)
     board[coordinate[0]][coordinate[1]] == " "
   end
 
-  def ship_hit?(coordinate, board=game_board)
+  def ship_board_available?(coordinate, board=computer_board.ship_board)
+    board[coordinate[0]][coordinate[1]] == " "
+  end
+
+  def ship_hit?(coordinate, board=player_board.ship_board)
     board[coordinate[0]][coordinate[1]] == "S"
   end
 
   def computer_shoot
     shot = random_coordinate
-    if available?(shot)
+    if computer_board_available?(shot)
       shot
     else
       computer_shoot
@@ -51,7 +42,7 @@ class Computer
     ship = []
     until ship.length == size
       random = random_coordinate
-      ship << random unless available?(random) == false || ship.include?(random)
+      ship << random unless ship_board_available?(random) == false || ship.include?(random)
     end
     ship_creator_filter(size, ship) ? ship_inserter(ship) : computer_ship_creator(size)
   end
@@ -67,14 +58,14 @@ class Computer
     end
   end
 
-  def ship_inserter(array, board=game_board)
+  def ship_inserter(array, board=computer_board.ship_board)
     array.each {|position| board[position[0]][position[1]] = "S"}
   end
 
 #need to change this board to players's board
 #or move methods to a shared space so both can use
 #if so need to change tests too
-  def hit_miss_inserter(board=game_board)
+  def hit_miss_inserter(board=player_board.player_board)
     shot = computer_shoot
     if ship_hit?(shot) == true
       board[shot[0]][shot[1]] = "H"

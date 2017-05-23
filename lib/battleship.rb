@@ -4,7 +4,7 @@ require './lib/gameplay'
 require './lib/interface'
 require './lib/player'
 
-class Battleship
+class Battleship #I don't know that I need all of this
   def initialize
     @board = Board.new
     @computer = Computer.new
@@ -33,3 +33,5 @@ class Battleship
     @player
   end
 end
+
+#call interface and have that thing run
