@@ -1,39 +1,51 @@
 require 'pry'
+require './lib/interface'
 
 class Battleship
   def initialize
-    @battleship_player = Player.new
-    @battleship_computer = Computer.new
+    @gameplay = Gameplay.new
+  end
+
+  def gameplay
+    @gameplay
+  end
+end
+
+
+class Gameplay
+  def initialize
+    @player = Player.new
+    @computer = Computer.new
   end
 
   def player
-    @battleship_player
+    @player
   end
 
   def computer
-    @battleship_computer
+    @computer
   end
 end
 
   class Player
-    attr_accessor :player
+    attr_accessor :board
     def initialize
-      @player = Board.new
+      @board = Board.new
     end
 
-    def player
-      @player
+    def board
+      @board
     end
   end
 
   class Computer
-    attr_accessor :computer
+    attr_accessor :board
     def initialize
-    @computer = Board.new
+      @board = Board.new
     end
 
-    def computer
-      @computer
+    def board
+      @board
     end
   end
 
@@ -46,21 +58,10 @@ class Board
       "C" => {"1" => " ", "2" => " ", "3" => " ", "4" => " "},
       "D" => {"1" => " ", "2" => " ", "3" => " ", "4" => " "}
     }
-
-    @ship_board = {
-      "A" => {"1" => " ", "2" => " ", "3" => " ", "4" => " "},
-      "B" => {"1" => " ", "2" => " ", "3" => " ", "4" => " "},
-      "C" => {"1" => " ", "2" => " ", "3" => " ", "4" => " "},
-      "D" => {"1" => " ", "2" => " ", "3" => " ", "4" => " "}
-    }
   end
 
   def game_board
     @game_board
-  end
-
-  def ship_board
-    @ship_board
   end
 
   def output(board=@game_board)
@@ -75,4 +76,4 @@ class Board
 end
 
 test = Battleship.new
-puts test.computer.computer.output
+puts test.gameplay.computer.board.output
