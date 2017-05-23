@@ -2,25 +2,43 @@ require 'pry'
 
 class Battleship
   def initialize
-    @player = Player.new
-    @computer = Computer.new
+    @battleship_player = Player.new
+    @battleship_computer = Computer.new
+  end
+
+  def player
+    @battleship_player
+  end
+
+  def computer
+    @battleship_computer
   end
 end
 
   class Player
+    attr_accessor :player
     def initialize
       @player = Board.new
+    end
+
+    def player
+      @player
     end
   end
 
   class Computer
+    attr_accessor :computer
     def initialize
     @computer = Board.new
+    end
+
+    def computer
+      @computer
     end
   end
 
 class Board
-  attr_accessor :game_board
+  attr_accessor :game_board, :ship_board
   def initialize
     @game_board = {
       "A" => {"1" => " ", "2" => " ", "3" => " ", "4" => " "},
@@ -28,6 +46,21 @@ class Board
       "C" => {"1" => " ", "2" => " ", "3" => " ", "4" => " "},
       "D" => {"1" => " ", "2" => " ", "3" => " ", "4" => " "}
     }
+
+    @ship_board = {
+      "A" => {"1" => " ", "2" => " ", "3" => " ", "4" => " "},
+      "B" => {"1" => " ", "2" => " ", "3" => " ", "4" => " "},
+      "C" => {"1" => " ", "2" => " ", "3" => " ", "4" => " "},
+      "D" => {"1" => " ", "2" => " ", "3" => " ", "4" => " "}
+    }
+  end
+
+  def game_board
+    @game_board
+  end
+
+  def ship_board
+    @ship_board
   end
 
   def output(board=@game_board)
@@ -40,3 +73,6 @@ class Board
     puts "============="
   end
 end
+
+test = Battleship.new
+puts test.computer.computer.output
