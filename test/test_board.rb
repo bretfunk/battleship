@@ -47,8 +47,5 @@ class BoardTest < Minitest::Test
     assert_equal " ", result
   end
 
-
-
-
-
+  #How do I test ship visual output?  I think Mike said you cant
 end
