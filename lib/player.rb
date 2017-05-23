@@ -5,39 +5,26 @@ class Player
   attr_accessor :player_board
   def initialize
     @player_board = Board.new
-
   end
 
   def player_board
     @player_board
   end
 
-  def what_is_your_name
-    puts "What is your name?"
-    name_answer = gets.chomp
-    return name_answer
+  def game_board_available?(coordinate, board=player_board.game_board)
+    board[coordinate[0]][coordinate[1]] == " "
   end
-
-  def player_ship_placement
-    puts "Where do you want to place your ships?"
-    answer = gets.chomp
-  end
-
-  def player_shoot
-    puts "Where do you want to shoot?"
-    answer = gets.chomp
-  end
-
-  def available?(coordinate, board=player_board)
+  #make game_board_available and ship_board_available the same if you have time.  Error on test, line 141.
+  def ship_board_available?(coordinate, board=player_board.ship_board)
     board[coordinate[0]][coordinate[1]] == " "
   end
 
-  def ship_hit?(coordinate, board=player_board)
+  def ship_hit?(coordinate, board=player_board.ship_board)
     board[coordinate[0]][coordinate[1]] == "S"
   end
 
   def player_shoot(coordinate) #might have to change return to puts
-    if available?(coordinate)
+    if game_board_available?(coordinate)
       if ship_hit?(coordinate)
         return "Hit!"
       else
@@ -71,10 +58,10 @@ class Player
   end
 
   def all_coordinates_avaiable?(array)
-    array.all? {|coordinates| self.available?(coordinates)}
+    array.all? {|coordinates| self.game_board_available?(coordinates)}
   end
 
-  def ship_inserter(array, board=player_board)
+  def ship_inserter(array, board=player_board.ship_board)
     array.each {|position| board[position[0]][position[1]] = "S"}
   end
 
@@ -93,6 +80,6 @@ class Player
       false
     end
   end
-
-
 end
+test = Player.new
+puts test.player_board.game_board

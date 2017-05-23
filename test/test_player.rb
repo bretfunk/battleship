@@ -13,20 +13,20 @@ class PlayerTest < Minitest::Test
 
   def test_game_board_exists
     test = Player.new
-    result = test.game_board.nil?
+    result = test.player_board.game_board.nil?
     assert_equal false, result
   end
 
   def test_available
     test = Player.new
-    result = test.available?("A1")
+    result = test.game_board_available?("A1")
     assert_equal true, result
   end
 
   def test_not_available
     test = Player.new
-    test.game_board["A"]["1"] = "M"
-    result = test.available?("A1")
+    test.player_board.game_board["A"]["1"] = "M"
+    result = test.game_board_available?("A1")
     assert_equal false, result
   end
 
@@ -38,7 +38,7 @@ class PlayerTest < Minitest::Test
 
   def test_ship_hit_with_ship
     test = Player.new
-    test.game_board["A"]["1"] = "S"
+    test.player_board.ship_board["A"]["1"] = "S"
     result = test.ship_hit?("A1")
     assert_equal true, result
   end
@@ -47,21 +47,21 @@ class PlayerTest < Minitest::Test
     #testing own game board
     skip
     test = Player.new
-    test.game_board["A"]["1"] = "S"
+    test.player_board.ship_board["A"]["1"] = "S"
     result = test.player_shoot("A1")
     assert_equal "Hit!", result #not working
   end
 
   def test_player_shoot_with_miss
     test = Player.new
-    test.game_board["A"]["1"] = " "
+    test.player_board.game_board["A"]["1"] = " "
     result = test.player_shoot("A1")
     assert_equal "Miss!", result
   end
 
   def test_player_shoot_with_invalid_coordinates
     test = Player.new
-    test.game_board["A"]["1"] = "M"
+    test.player_board.game_board["A"]["1"] = "M"
     result = test.player_shoot("A1")
     assert_equal "Not valid coordinates", result
   end
@@ -117,28 +117,28 @@ class PlayerTest < Minitest::Test
   def test_ship_inserter
     test = Player.new
     test.ship_inserter(["D3"])
-    result = test.game_board["D"]["3"]
+    result = test.player_board.ship_board["D"]["3"]
     assert_equal "S", result
   end
 
   def test_new_ship_inserter
     test = Player.new
     test.ship_inserter(["A2"])
-    result = test.game_board["A"]["2"]
+    result = test.player_board.ship_board["A"]["2"]
     assert_equal "S", result
   end
 
   def test_different_ship_inserter
     test = Player.new
     test.ship_inserter(["C3"])
-    result = test.game_board["C"]["3"]
+    result = test.player_board.ship_board["C"]["3"]
     assert_equal "S", result
   end
 
   def test_player_ship_request
     test = Player.new
     test.player_ship_request(3, ["A1", "B1", "C1"])
-    result = test.available?("A1")
+    result = test.ship_board_available?("A1")
     assert_equal false, result
   end
 
@@ -156,14 +156,14 @@ class PlayerTest < Minitest::Test
 
   def test_player_ship_request_not_available
     test = Player.new
-    test.game_board["A"]["1"] = "S"
+    test.player_board.game_board["A"]["1"] = "S"
     result = test.player_ship_request(3, ["A1", "B1", "C1"])
     assert_equal "Not valid coordinates", result
   end
 
   def test_new_player_ship_request_not_available
     test = Player.new
-    test.game_board["A"]["1"] = "S"
+    test.player_board.game_board["A"]["1"] = "S"
     result = test.player_ship_request(3, ["A1", "A2", "A3"])
     assert_equal "Not valid coordinates", result
   end

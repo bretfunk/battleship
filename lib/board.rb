@@ -24,6 +24,10 @@ class Board
       @ship_board
     end
 
+    # def ship_output(board=ship_board)
+    #   output(board)
+    # end
+
     def output(board=@game_board)
       puts "============="
       puts "   1  2  3  4"

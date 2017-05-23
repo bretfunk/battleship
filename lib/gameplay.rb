@@ -3,6 +3,7 @@ require './lib/player'
 require './lib/board' #prob not needed
 
 class Gameplay
+  attr_accessor :player, :computer
   def initialize
     @player = Player.new
     @computer = Computer.new
@@ -16,7 +17,7 @@ class Gameplay
     @computer
   end
 
-  def new_ship(size)
+  def computer_new_ship(size)
     computer.computer_ship_creator(size)
   end
 
@@ -36,8 +37,7 @@ class Gameplay
 end
 
 test = Gameplay.new
-test.new_ship(2)
-test.new_ship(3)
+test.computer_new_ship(2)
+test.computer_new_ship(3)
+test.computer_output
 test.computer_hit_or_miss_inserter
-test.computer_hit_or_miss_inserter
-test.player_output

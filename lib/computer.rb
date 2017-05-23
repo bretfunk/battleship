@@ -1,6 +1,7 @@
 require './lib/board'
 require './lib/player'
 
+
 class Computer
   attr_accessor :computer_board
   def initialize
@@ -65,7 +66,7 @@ class Computer
 #need to change this board to players's board
 #or move methods to a shared space so both can use
 #if so need to change tests too
-  def hit_miss_inserter(board=player_board.player_board)
+  def hit_miss_inserter(board=@player.player_board.ship_board) #help
     shot = computer_shoot
     if ship_hit?(shot) == true
       board[shot[0]][shot[1]] = "H"
