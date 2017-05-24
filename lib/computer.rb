@@ -1,12 +1,12 @@
-
-#require './lib/player'
-#require './lib/board'
+require './lib/board'
 
 class Computer
-  attr_accessor :computer_board
-  def initialize
+  attr_accessor :computer_board, :opponent_board, :computer_shots, :hit_counter
+  def initialize(opponent_board=nil)
   @computer_board = Board.new
   @hit_counter = 0
+  @opponent_board = opponent_board
+  @computer_shots = 0
   end
 
   def random_coordinate
@@ -14,6 +14,8 @@ class Computer
     number = rand(1..4)
     return "#{letter}#{number}"
   end
+
+  #("a".."d").to_a
 
   def computer_board_available?(coordinate, board=computer_board.game_board)
     board[coordinate[0]][coordinate[1]] == " "
@@ -23,10 +25,8 @@ class Computer
     board[coordinate[0]][coordinate[1]] == " "
   end
   #need to fix computer board to player board
-  def ship_hit?(coordinate, board=player.player_board.ship_board)
-    binding.pry
+  def ship_hit?(coordinate, board=opponent_board.ship_board)
     board[coordinate[0]][coordinate[1]] == "S"
-    @hit_counter += 1
   end
 
   def computer_shoot
@@ -65,11 +65,13 @@ class Computer
 #need to change this board to players's board
 #or move methods to a shared space so both can use
 #if so need to change tests too
-  def hit_miss_inserter(board=computer_board.game_board) #help
+  def hit_miss_inserter(board=player_board.game_board) #help
     shot = computer_shoot
     if ship_hit?(shot) == true
+      @computer_shots += 1
       board[shot[0]][shot[1]] = "H"
     else
+      @computer_shots += 1
       board[shot[0]][shot[1]] = "M"
     end
   end

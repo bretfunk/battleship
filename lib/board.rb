@@ -1,4 +1,4 @@
-#require './battleship'
+
 class Board
   attr_accessor :game_board, :ship_board
   def initialize
