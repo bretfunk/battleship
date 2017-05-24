@@ -15,8 +15,6 @@ class Computer
     return "#{letter}#{number}"
   end
 
-  #("a".."d").to_a
-
   def computer_board_available?(coordinate, board=computer_board.game_board)
     board[coordinate[0]][coordinate[1]] == " "
   end
@@ -24,7 +22,7 @@ class Computer
   def ship_board_available?(coordinate, board=computer_board.ship_board)
     board[coordinate[0]][coordinate[1]] == " "
   end
-  #need to fix computer board to player board
+
   def ship_hit?(coordinate, board=opponent_board.ship_board)
     board[coordinate[0]][coordinate[1]] == "S"
   end
@@ -65,7 +63,7 @@ class Computer
 #need to change this board to players's board
 #or move methods to a shared space so both can use
 #if so need to change tests too
-  def hit_miss_inserter(board=player_board.game_board) #help
+  def hit_miss_inserter(board=opponent_board.game_board) #help
     shot = computer_shoot
     if ship_hit?(shot) == true
       @computer_shots += 1

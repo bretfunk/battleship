@@ -1,3 +1,4 @@
+require './lib/battleship'
 module Gameplay
 
   def computer_new_ship(size)

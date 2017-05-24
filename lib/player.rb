@@ -22,7 +22,7 @@ class Player
     board[coordinate[0]][coordinate[1]] == "S"
   end
 
-  def player_shoot(coordinate, board=player_board.game_board) #might have to change return to puts
+  def player_shoot(coordinate, board=player_board.game_board)
     if game_board_available?(coordinate)
       if ship_hit?(coordinate)
         @player_shots += 1
@@ -84,6 +84,3 @@ class Player
     end
   end
 end
-test = Player.new
-#puts test.player_board.game_board
-#puts test.computer.computer_board.output

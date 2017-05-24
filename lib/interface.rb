@@ -11,27 +11,21 @@ module Interface
   end
 
   def message_welcome_choice(choice)
+    choice = choice.downcase
     case choice
-    when "p" then puts play_game
+    when "p" then puts message_play
     when "i" then puts message_instructions
     when "q" then puts message_exit
+    else puts "not a valid choice"
     end
   end
 
-  def play_game
-  end
-
   def message_computer_ship_placement
-    "I have laid out my ships on the grid.\n
-    You now need to layout your two ships.\n
-    The first is two units long and the\nsecond is three units long.\n
-    The grid has A1 at the top left and D4 at the bottom right.\n
-    Enter the squares for the two-unit ship:"
+    "I have laid out my ships on the grid.\nYou now need to layout your two ships.\nThe first is two units long and the \nsecond is three units long.\nThe grid has A1 at the top left and D4 \nat the bottom right.\n\nEnter the squares for the two-unit ship: \n\n"
   end
 
-  def message_player_ship_placement
-    puts "Where do you want to place your ships?"
-    answer = gets.chomp
+  def message_player_three_ship_placement
+    puts "Where do you want to place your three-unit ship?"
   end
 
   def message_player_shoot
@@ -67,12 +61,16 @@ module Interface
   end
 
   def message_instructions
-    return "This game is called battleship.  The player places \ntwo ships on a 4x4 board, as does a computer opponent, \nand you shoot board corrdinates to sink your opponent's battleship.  \nWhomever destroys their opponent's ships first wins!\n"
-
+    return "In Battleship the player places two ships on a 4x4 board, \nas does a computer opponent, and and each shoot at board \ncorrdinates to sink their opponent's battleship. \nWhomever destroys all of their opponent's ships first wins!\n"
   end
 
   def message_exit
     return "Thank you for playing!"
   end
+
+  def message_play
+    return "Let's play!  Hit enter to continue."
+  end
+
 
 end

@@ -38,7 +38,7 @@ class PlayerTest < Minitest::Test
 
   def test_ship_hit_with_ship
     test = Player.new(Board.new)
-    test.player_board.ship_board["A"]["1"] = "S"
+    test.opponent_board.ship_board["A"]["1"] = "S"
     result = test.ship_hit?("A1")
     assert_equal true, result
   end
