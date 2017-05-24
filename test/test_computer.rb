@@ -13,25 +13,25 @@ class ComputerTest < Minitest::Test
 
   def test_game_board
     test = Computer.new
-    result = test.game_board.nil?
+    result = test.computer_board.game_board.nil?
     assert_equal false, result
   end
 
   def test_game_board_coordinates
     test = Computer.new
-    result = test.game_board["A"]["1"]
+    result = test.computer_board.game_board["A"]["1"]
     assert_equal " ", result
   end
 
   def test_another_game_board_coordinates
     test = Computer.new
-    result = test.game_board["B"]["2"]
+    result = test.computer_board.game_board["B"]["2"]
     assert_equal " ", result
   end
 
   def test_yet_another_game_board_coordinates
     test = Computer.new
-    result = test.game_board["C"]["3"]
+    result = test.computer_board.game_board["C"]["3"]
     assert_equal " ", result
   end
 
@@ -44,34 +44,34 @@ class ComputerTest < Minitest::Test
 
   def test_coordinates_avaiable
     test = Computer.new
-    result = test.available?("A1")
+    result = test.computer_board.available?("A1")
     assert_equal true, result
   end
 
   def test_coordinates_avaiable_miss
     test = Computer.new
     test.game_board["A"]["1"] = "M"
-    result = test.available?("A1")
+    result = test.computer_board..game_board.available?("A1")
     assert_equal false, result
   end
 
   def test_coordinates_avaiable_hit
     test = Computer.new
-    test.game_board["A"]["1"] = "H"
-    result = test.available?("A1")
+    test.computer_board.game_board["A"]["1"] = "H"
+    result = test.computer_board.game_board.available?("A1")
     assert_equal false, result
   end
 
   def test_coordinates_hit
     test = Computer.new
-    test.game_board["B"]["2"] = "S"
+    test.computer_board.game_board["B"]["2"] = "S"
     result = test.ship_hit?("B2")
     assert_equal true, result
   end
 
   def test_coordinates_not_hit
     test = Computer.new
-    test.game_board["B"]["2"] = " "
+    test.computer_board.game_board["B"]["2"] = " "
     result = test.ship_hit?("B2")
     assert_equal false, result
   end
@@ -146,21 +146,21 @@ class ComputerTest < Minitest::Test
   def test_ship_inserter
     test = Computer.new
     test.ship_inserter(["A1"])
-    result = test.game_board["A"]["1"]
+    result = test.computer_board.ship_board["A"]["1"]
     assert_equal "S", result
   end
 
   def test_new_ship_inserter
     test = Computer.new
     test.ship_inserter(["D4"])
-    result = test.game_board["D"]["4"]
+    result = test.computer_board.ship_board["D"]["4"]
     assert_equal "S", result
   end
 
   def test_different_ship_inserter
     test = Computer.new
     test.ship_inserter(["B2"])
-    result = test.game_board["B"]["2"]
+    result = test.computer_board.ship_board["B"]["2"]
     assert_equal "S", result
   end
 

@@ -1,56 +1,45 @@
 require 'pry'
-require './lib/interface'
 
 class Battleship
+  attr_accessor :gameplay
   def initialize
     @gameplay = Gameplay.new
-  end
-
-  def gameplay
-    @gameplay
   end
 end
 
 
 class Gameplay
+  attr_accessor :player, :computer
   def initialize
     @player = Player.new
     @computer = Computer.new
   end
-
-  def player
-    @player
-  end
-
-  def computer
-    @computer
-  end
 end
 
   class Player
-    attr_accessor :board
+    attr_accessor :player_board
     def initialize
-      @board = Board.new
+      @player_board = Board.new
     end
 
-    def board
-      @board
+    def computer_board
+      @computer.computer_board
+      binding.pry
     end
+
+    # player.computer_board = computer.board; computer.opponent_board = player.board.
+
   end
 
   class Computer
-    attr_accessor :board
+    attr_accessor :computer_board
     def initialize
-      @board = Board.new
-    end
-
-    def board
-      @board
+      @computer_board = Board.new
     end
   end
 
 class Board
-  attr_accessor :game_board, :ship_board
+  attr_accessor :game_board
   def initialize
     @game_board = {
       "A" => {"1" => " ", "2" => " ", "3" => " ", "4" => " "},
@@ -75,5 +64,5 @@ class Board
   end
 end
 
-test = Battleship.new
-puts test.gameplay.computer.board.output
+test = Player.new
+test.player_board.output

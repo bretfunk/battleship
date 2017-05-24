@@ -1,15 +1,12 @@
-require './lib/board'
-require './lib/player'
 
+#require './lib/player'
+#require './lib/board'
 
 class Computer
   attr_accessor :computer_board
   def initialize
   @computer_board = Board.new
-  end
-
-  def computer_board
-    @computer_board
+  @hit_counter = 0
   end
 
   def random_coordinate
@@ -18,16 +15,18 @@ class Computer
     return "#{letter}#{number}"
   end
 
-  def computer_board_available?(coordinate, board=computer_board.computer_board)
+  def computer_board_available?(coordinate, board=computer_board.game_board)
     board[coordinate[0]][coordinate[1]] == " "
   end
 
   def ship_board_available?(coordinate, board=computer_board.ship_board)
     board[coordinate[0]][coordinate[1]] == " "
   end
-
-  def ship_hit?(coordinate, board=player_board.ship_board)
+  #need to fix computer board to player board
+  def ship_hit?(coordinate, board=player.player_board.ship_board)
+    binding.pry
     board[coordinate[0]][coordinate[1]] == "S"
+    @hit_counter += 1
   end
 
   def computer_shoot
@@ -66,7 +65,7 @@ class Computer
 #need to change this board to players's board
 #or move methods to a shared space so both can use
 #if so need to change tests too
-  def hit_miss_inserter(board=@player.player_board.ship_board) #help
+  def hit_miss_inserter(board=computer_board.game_board) #help
     shot = computer_shoot
     if ship_hit?(shot) == true
       board[shot[0]][shot[1]] = "H"

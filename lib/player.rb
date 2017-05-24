@@ -1,14 +1,12 @@
-require './lib/board'
-require './lib/computer'
+
+#require './lib/computer'
+#require './lib/board'
 
 class Player
   attr_accessor :player_board
   def initialize
     @player_board = Board.new
-  end
-
-  def player_board
-    @player_board
+    @hit_counter = 0
   end
 
   def game_board_available?(coordinate, board=player_board.game_board)
@@ -19,8 +17,9 @@ class Player
     board[coordinate[0]][coordinate[1]] == " "
   end
 
-  def ship_hit?(coordinate, board=player_board.ship_board)
+  def ship_hit?(coordinate, board=computer_board.ship_board)
     board[coordinate[0]][coordinate[1]] == "S"
+    @hit_counter += 1
   end
 
   def player_shoot(coordinate) #might have to change return to puts
@@ -82,4 +81,5 @@ class Player
   end
 end
 test = Player.new
-puts test.player_board.game_board
+#puts test.player_board.game_board
+#puts test.computer.computer_board.output
