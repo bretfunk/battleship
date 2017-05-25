@@ -22,8 +22,11 @@ class Player
   end
 
   def player_shoot(coordinate, board=opponent_board.game_board)
-    if game_board_available?(coordinate)
-      if ship_hit?(coordinate)
+      if coordinate.nil?
+        puts "not a valid coordinate"
+      elsif game_board_available?(coordinate) == false
+        puts "not a valid coordinate"
+      elsif ship_hit?(coordinate)
         @player_shots += 1
         @hit_counter += 1
         board[coordinate[0]][coordinate[1]] = "H"
@@ -33,9 +36,7 @@ class Player
         board[coordinate[0]][coordinate[1]] = "M"
         puts "Miss!"
       end
-    else
-      p "Not valid coordinates"
-    end
+
   end
 
   def close_numbers?(size, array)
@@ -72,7 +73,6 @@ class Player
     if ship_creator_filter(size, request) && all_coordinates_avaiable?(request)
         ship_inserter(request)
     else
-      puts "Not valid coordinates"
     end
   end
 

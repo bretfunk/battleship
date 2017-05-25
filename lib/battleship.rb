@@ -3,6 +3,8 @@ require './lib/computer'
 require './lib/gameplay'
 require './lib/interface'
 require './lib/runner'
+require 'simplecov'
+SimpleCov.start
 
 class Battleship
   include Gameplay

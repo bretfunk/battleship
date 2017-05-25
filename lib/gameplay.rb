@@ -40,7 +40,7 @@ module Gameplay
     player.player_shoot(coordinate)
   end
 
-  def player_ship_requests(size, request)
+  def player_ship_request(size, request)
     player.player_ship_request(size, request)
   end
 

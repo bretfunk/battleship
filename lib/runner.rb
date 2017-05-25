@@ -1,7 +1,6 @@
 require './lib/battleship'
 require './lib/interface'
 require './lib/gameplay'
-require 'pry'
 
 include Interface
 include Gameplay
@@ -22,11 +21,11 @@ message_computer_ship_placement
 
 #player adds ships, needs a method to loop
 player_two_ship = gets.chomp.split(" ")
-new_game.player_ship_requests(2, player_two_ship)
+new_game.player_ship_request(2, player_two_ship)
 
 message_player_three_ship_placement
 player_three_ship = gets.chomp.split(" ")
-#puts new_game.player_ship_request(3, player_three_ship)
+new_game.player_ship_request(3, player_three_ship)
 
 #player's turn, needs a method to loop
 until new_game.player_hits == 5 || new_game.computer_hits == 5
@@ -45,7 +44,6 @@ until new_game.player_hits == 5 || new_game.computer_hits == 5
   new_game.player_output
   puts "Press ENTER for your turn."
   gets.chomp
-  puts
 end
 
 #no ending sequence
