@@ -23,9 +23,9 @@ class Player
 
   def player_shoot(coordinate, board=opponent_board.game_board)
       if coordinate.nil?
-        puts "not a valid coordinate"
+        p "Not a valid coordinate."
       elsif game_board_available?(coordinate) == false
-        puts "not a valid coordinate"
+        p "Not a valid coordinate."
       elsif ship_hit?(coordinate)
         @player_shots += 1
         @hit_counter += 1
@@ -73,6 +73,7 @@ class Player
     if ship_creator_filter(size, request) && all_coordinates_avaiable?(request)
         ship_inserter(request)
     else
+      return "Not valid coordinates"
     end
   end
 

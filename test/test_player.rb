@@ -43,8 +43,7 @@ class PlayerTest < Minitest::Test
     assert_equal true, result
   end
 
-  def test_player_shoot_with_hit #might have to change puts for return
-    #testing own game board
+  def test_player_shoot_with_hit
     skip
     test = Player.new(Board.new)
     test.player_board.ship_board["A"]["1"] = "S"
@@ -63,7 +62,7 @@ class PlayerTest < Minitest::Test
     test = Player.new(Board.new)
     test.player_board.game_board["A"]["1"] = "M"
     result = test.player_shoot("A1")
-    assert_equal "Not valid coordinates", result
+    assert_equal "Not a valid coordinate.", result
   end
 
   def test_close_numbers #work on this, ship size 2
@@ -167,6 +166,20 @@ class PlayerTest < Minitest::Test
     result = test.player_ship_request(3, ["A1", "A2", "A3"])
     assert_equal "Not valid coordinates", result
   end
+
+  # def test_player_hit_counter
+  #   test = Player.new(Board.new)
+  #   test.player_board.game_board["A"]["1"] = "S"
+  #   result = test.player_ship_request(3, ["A1", "A2", "A3"])
+  #   assert_equal "Not valid coordinates", result
+  # end
+  #
+  # def test_player_shot_counter
+  #   test = Player.new(Board.new)
+  #   test.player_board.game_board["A"]["1"] = "S"
+  #   result = test.player_ship_request(3, ["A1", "A2", "A3"])
+  #   assert_equal "Not valid coordinates", result
+  # end
 
 
 end

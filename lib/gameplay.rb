@@ -52,4 +52,8 @@ module Gameplay
     player.hit_counter
   end
 
+  def ship_creator_filter(size, ship)
+    player.ship_creator_filter(size, ship)
+  end
+
 end
