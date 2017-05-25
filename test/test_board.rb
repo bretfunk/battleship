@@ -46,6 +46,4 @@ class BoardTest < Minitest::Test
     result = test.ship_board["B"]["2"]
     assert_equal " ", result
   end
-
-  #How do I test ship visual output?  I think Mike said you cant
 end

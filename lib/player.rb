@@ -12,7 +12,7 @@ class Player
   def game_board_available?(coordinate, board=player_board.game_board)
     board[coordinate[0]][coordinate[1]] == " "
   end
-  #make game_board_available and ship_board_available the same if you have time.  Error on test, line 141.
+
   def ship_board_available?(coordinate, board=player_board.ship_board)
     board[coordinate[0]][coordinate[1]] == " "
   end
@@ -27,14 +27,14 @@ class Player
       if ship_hit?(coordinate)
         @player_shots += 1
         board[coordinate[0]][coordinate[1]] = "H"
-        return "Hit!"
+        puts "Hit!"
       else
         @player_shots += 1
         board[coordinate[0]][coordinate[1]] = "M"
-        return "Miss!"
+        puts "Miss!"
       end
     else
-      return "Not valid coordinates"
+      p "Not valid coordinates"
     end
   end
 
@@ -72,7 +72,7 @@ class Player
     if ship_creator_filter(size, request) && all_coordinates_avaiable?(request)
         ship_inserter(request)
     else
-      return "Not valid coordinates"
+      p "Not valid coordinates"
     end
   end
 

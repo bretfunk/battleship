@@ -1,4 +1,3 @@
-require './lib/battleship'
 module Gameplay
 
   def computer_new_ship(size)
@@ -39,6 +38,10 @@ module Gameplay
 
   def player_hits
     player.hit_counter
+  end
+
+  def computer_shoot
+    computer.computer_shoot
   end
 
   def computer_shots

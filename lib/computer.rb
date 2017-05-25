@@ -60,15 +60,14 @@ class Computer
     array.each {|position| board[position[0]][position[1]] = "S"}
   end
 
-#need to change this board to players's board
-#or move methods to a shared space so both can use
-#if so need to change tests too
   def hit_miss_inserter(board=opponent_board.game_board) #help
     shot = computer_shoot
     if ship_hit?(shot) == true
       @computer_shots += 1
+      puts "Hit!"
       board[shot[0]][shot[1]] = "H"
     else
+      puts "Miss!"
       @computer_shots += 1
       board[shot[0]][shot[1]] = "M"
     end
