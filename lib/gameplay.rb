@@ -8,6 +8,27 @@ module Gameplay
     computer.hit_miss_inserter
   end
 
+  def computer_shoot
+    computer.computer_shoot
+  end
+
+  def computer_shots
+    computer.computer_shots
+  end
+
+  def computer_hits
+    computer.hit_counter
+  end
+
+  def computer_ship_output
+    computer.computer_board.ship_output
+  end
+
+  def computer_output
+    computer.computer_board.output
+  end
+
+
   def player_output
     player.player_board.output
   end
@@ -24,14 +45,6 @@ module Gameplay
     player.player_ship_request(size, request)
   end
 
-  def computer_ship_output
-    computer.computer_board.ship_output
-  end
-
-  def computer_output
-    computer.computer_board.output
-  end
-
   def player_shots
     player.player_shots
   end
@@ -40,16 +53,5 @@ module Gameplay
     player.hit_counter
   end
 
-  def computer_shoot
-    computer.computer_shoot
-  end
-
-  def computer_shots
-    computer.computer_shots
-  end
-
-  def computer_hits
-    computer.hit_counter
-  end
 
 end
