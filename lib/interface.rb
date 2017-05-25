@@ -50,11 +50,11 @@ module Interface
   end
 
   def message_player_shots_fired
-    "Total player shots: #{player.player_shots}"
+    puts "Total player shots: #{player.player_shots}"
   end
 
   def message_computer_shots_fired
-    "Total computer shots: #{computer.computer_shots}"
+    puts "Total computer shots: #{computer.computer_shots}"
   end
 
 #create

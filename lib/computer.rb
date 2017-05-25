@@ -15,20 +15,23 @@ class Computer
     return "#{letter}#{number}"
   end
 
-  def computer_board_available?(coordinate, board=computer_board.game_board)
+  def computer_board_available?(coordinate)
+    board = computer_board.game_board
     board[coordinate[0]][coordinate[1]] == " "
   end
 
-  def ship_board_available?(coordinate, board=computer_board.ship_board)
+  def ship_board_available?(coordinate)
+    board = computer_board.ship_board
     board[coordinate[0]][coordinate[1]] == " "
   end
 
-  def ship_hit?(coordinate, board=opponent_board.ship_board)
+  def ship_hit?(coordinate)
+    board = opponent_board.ship_board
     board[coordinate[0]][coordinate[1]] == "S"
   end
 
   def computer_shoot
-    shot=random_coordinate
+    shot = random_coordinate
     if computer_board_available?(shot)
       shot
     else
@@ -56,12 +59,13 @@ class Computer
     end
   end
 
-  def ship_inserter(array, board=computer_board.ship_board)
+  def ship_inserter(array)
+    board = computer_board.ship_board
     array.each {|position| board[position[0]][position[1]] = "S"}
   end
 
-  def hit_miss_inserter(shot = computer_shoot) #help
-    board=opponent_board.game_board
+  def hit_miss_inserter(shot=computer_shoot)
+    board = computer_board.game_board
     if ship_hit?(shot) == true
       @computer_shots += 1
       @hit_counter += 1

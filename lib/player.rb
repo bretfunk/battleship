@@ -9,23 +9,31 @@ class Player
     @player_shots = 0
   end
 
-  def game_board_available?(coordinate, board=player_board.game_board)
+  def game_board_available?(coordinate)
+    board = player_board.game_board
     board[coordinate[0]][coordinate[1]] == " "
   end
 
-  def ship_board_available?(coordinate, board=player_board.ship_board)
-    board[coordinate[0]][coordinate[1]] == " "
+  def ship_board_available?(coordinate)
+    board = player_board.ship_board
+     board[coordinate[0]][coordinate[1]] == " "
   end
 
-  def ship_hit?(coordinate, board=opponent_board.ship_board)
+  def ship_hit?(coordinate)
+    board = opponent_board.ship_board
     board[coordinate[0]][coordinate[1]] == "S"
   end
 
-  def player_shoot(coordinate, board=opponent_board.game_board)
+  def player_shoot(coordinate)
+    board = player_board.game_board
       if coordinate.nil?
-        p "Not a valid coordinate."
+        p "Not a valid coordinate. Enter a new coordinate:"
+        new_coord = gets.chomp
+        player_shoot(new_coord)
       elsif game_board_available?(coordinate) == false
-        p "Not a valid coordinate."
+        p "Not a valid coordinate. Enter a new coordinate:"
+        new_coord2 = gets.chomp
+        player_shoot(new_coord2)
       elsif ship_hit?(coordinate)
         @player_shots += 1
         @hit_counter += 1
@@ -65,7 +73,8 @@ class Player
     array.all? {|coordinates| ship_board_available?(coordinates)}
   end
 
-  def ship_inserter(array, board=player_board.ship_board)
+  def ship_inserter(array)
+    board = player_board.ship_board
     array.each {|position| board[position[0]][position[1]] = "S"}
   end
 
@@ -73,7 +82,7 @@ class Player
     if ship_creator_filter(size, request) && all_coordinates_avaiable?(request)
         ship_inserter(request)
     else
-      return "Not valid coordinates"
+      p "Not valid coordinates"
     end
   end
 

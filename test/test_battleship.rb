@@ -36,5 +36,10 @@ class BattleshipTest < Minitest::Test
     assert_equal false, result
   end
 
+  def test = Battleship.new
+    result - test.time.nil?
+    assert_equal false, result
+  end
+
 
 end

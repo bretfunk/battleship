@@ -46,18 +46,18 @@ end
 #player's turn, needs a method to loop
 until new_game.player_hits == 5 || new_game.computer_hits == 5
   puts "= COMPUTER SHIPS ="
-  new_game.computer_output
+  new_game.player_output
   message_player_shoot
   fire_answer = gets.chomp
   new_game.player_shoot(fire_answer)
   puts "= COMPUTER SHIPS ="
-  new_game.computer_output
+  new_game.player_output
   message_end_player_turn
   gets.chomp
 #computer's turn
   new_game.computer_hit_or_miss_inserter
   puts "= PLAYER SHIPS ="
-  new_game.player_output
+  new_game.computer_output
   puts "Press ENTER for your turn."
   gets.chomp
 end
@@ -65,12 +65,13 @@ end
 #end sequence
 if new_game.player_hits == 5 #player won
   message_winner
-  message_player_shots_fired
+  puts "Total player shots: #{new_game.player_shots}"
 
 elsif new_game.computer_hits == 5 #computer won
   message_sorry
-  message_computer_shots_fired
+  puts "Total computer shots: #{new_game.computer_shots}"
 end
 
 puts "Thank you for playing!  Hit enter to exit"
 gets.chomp
+abort

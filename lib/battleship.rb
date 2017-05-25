@@ -9,11 +9,12 @@ require './lib/runner'
 class Battleship
   include Gameplay
   include Interface
-  attr_accessor :player, :computer
+  attr_accessor :player, :computer, :time
   def initialize
     @player = Player.new
     @computer = Computer.new
     @computer.opponent_board = @player.player_board
     @player.opponent_board = @computer.computer_board
+    @time = Time.new
   end
 end
