@@ -10,8 +10,21 @@ new_game = Battleship.new
 #beginning sequence
 puts
 message_welcome
+message_flag = false
+until message_flag == true
 welcome_answer = gets.downcase.chomp
-new_game.message_welcome_choice(welcome_answer)
+  if welcome_answer == "p"
+    message_flag = true
+    message_play
+  elsif welcome_answer == "i"
+    message_instructions
+    puts "Enter a new choice:"
+  elsif welcome_answer == "q"
+    abort
+  else
+    puts "not a valid choice"
+  end
+end
 puts ">"
 
 #computer add ships

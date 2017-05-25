@@ -63,7 +63,7 @@ module Interface
   end
 
   def message_instructions
-    return "In Battleship the player places two ships on a 4x4 board, \nas does a computer opponent, and and each shoot at board \ncorrdinates to sink their opponent's battleship. \nWhomever destroys all of their opponent's ships first wins!\n"
+    puts "In Battleship the player places two ships on a 4x4 board, \nas does a computer opponent, and and each shoot at board \ncorrdinates to sink their opponent's battleship. \nWhomever destroys all of their opponent's ships first wins!\n"
   end
 
   def message_exit
