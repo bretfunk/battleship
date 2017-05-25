@@ -28,7 +28,7 @@ class Computer
   end
 
   def computer_shoot
-    shot = random_coordinate
+    shot=random_coordinate
     if computer_board_available?(shot)
       shot
     else
@@ -60,8 +60,8 @@ class Computer
     array.each {|position| board[position[0]][position[1]] = "S"}
   end
 
-  def hit_miss_inserter(board=opponent_board.game_board) #help
-    shot = computer_shoot
+  def hit_miss_inserter(shot = computer_shoot) #help
+    board=opponent_board.game_board
     if ship_hit?(shot) == true
       @computer_shots += 1
       @hit_counter += 1

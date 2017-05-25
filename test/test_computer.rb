@@ -182,4 +182,24 @@ class ComputerTest < Minitest::Test
     assert_equal "M", result
   end
 
+  def test_computer_hit_counter
+    test = Computer.new(Board.new)
+    test.opponent_board.ship_board["A"]["1"] = "S"
+    test.hit_miss_inserter("A1")
+    test.opponent_board.ship_board["A"]["2"] = " "
+    test.hit_miss_inserter("A2")
+    result = test.hit_counter
+    assert_equal 1, result
+  end
+
+  def test_computer_shot_counter
+    test = Computer.new(Board.new)
+    test.opponent_board.ship_board["A"]["1"] = "S"
+    test.hit_miss_inserter("A1")
+    test.opponent_board.ship_board["A"]["2"] = " "
+    test.hit_miss_inserter("A2")
+    result = test.computer_shots
+    assert_equal 2, result
+  end
+
 end

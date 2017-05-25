@@ -64,9 +64,13 @@ end
 
 #end sequence
 if new_game.player_hits == 5 #player won
+  message_winner
+  message_player_shots_fired
 
 elsif new_game.computer_hits == 5 #computer won
-
+  message_sorry
+  message_computer_shots_fired
 end
 
-#no ending sequence
+puts "Thank you for playing!  Hit enter to exit"
+gets.chomp

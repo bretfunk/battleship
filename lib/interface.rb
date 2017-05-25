@@ -32,10 +32,6 @@ module Interface
     puts "On what coordinate do you want to fire?"
   end
 
-  def message_player_hit
-    puts "You hit an enemy ship!"
-  end
-
   def message_end_player_turn
     puts "End your turn by pressing ENTER."
   end
@@ -53,9 +49,12 @@ module Interface
     puts "You won!"
   end
 
-#create
-  def message_shots_fired
-  #  "#{winner_shots_counter}"
+  def message_player_shots_fired
+    "Total player shots: #{player.player_shots}"
+  end
+
+  def message_computer_shots_fired
+    "Total computer shots: #{computer.computer_shots}"
   end
 
 #create

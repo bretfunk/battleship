@@ -23,21 +23,16 @@ class BattleshipTest < Minitest::Test
     assert_equal false, result
   end
 
-  def test_gameplay_instance
-    test = Battleship.new
-    result = test.gameplay.nil?
-    assert_equal false, result
-  end
-
-  def test_interface_instance
-    test = Battleship.new
-    result = test.interface.nil?
-    assert_equal false, result
-  end
-
   def test_player_instance
     test = Battleship.new
     result = test.player.nil?
+    assert_equal false, result
+  end
+
+  def test_computer_opponet_board
+    skip
+    test = Battleship.new
+    result = test.computer_opponent_board.nil?
     assert_equal false, result
   end
 
