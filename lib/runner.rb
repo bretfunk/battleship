@@ -23,7 +23,7 @@ message_computer_ship_placement
 two_ship_flag = false
 until two_ship_flag == true
   player_two_ship = gets.chomp.split(" ")
-  if new_game.ship_creator_filter(2, player_two_ship) == false
+  if new_game.ship_creator_filter(2, player_two_ship) == false || new_game.ship_coordinates_available?(player_two_ship) == false
     puts "Not valid coordinates.  Please enter new coordinates:"
   else
     two_ship_flag = true
@@ -35,7 +35,7 @@ message_player_three_ship_placement
 three_ship_flag = false
 until three_ship_flag == true
   player_three_ship = gets.chomp.split(" ")
-  if new_game.ship_creator_filter(3, player_three_ship) == false
+  if new_game.ship_creator_filter(3, player_three_ship) == false ||  new_game.ship_coordinates_available?(player_three_ship) == false
     puts "Not valid coordinates.  Please enter new coordinates:"
   else
     three_ship_flag = true

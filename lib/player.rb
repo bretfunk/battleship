@@ -62,7 +62,7 @@ class Player
   end
 
   def all_coordinates_avaiable?(array)
-    array.all? {|coordinates| self.game_board_available?(coordinates)}
+    array.all? {|coordinates| ship_board_available?(coordinates)}
   end
 
   def ship_inserter(array, board=player_board.ship_board)

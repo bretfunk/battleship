@@ -56,4 +56,8 @@ module Gameplay
     player.ship_creator_filter(size, ship)
   end
 
+  def ship_coordinates_available?(array)
+    player.all_coordinates_avaiable?(array)
+  end
+
 end
