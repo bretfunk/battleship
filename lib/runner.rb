@@ -1,40 +1,51 @@
 require './lib/battleship'
 require './lib/interface'
 require './lib/gameplay'
+require 'pry'
 
 include Interface
 include Gameplay
 
 new_game = Battleship.new
+
+#beginning sequence
 puts
-puts message_welcome
-#puts ">"
-welcome_answer = gets.chomp
+message_welcome
+welcome_answer = gets.downcase.chomp
 new_game.message_welcome_choice(welcome_answer)
 puts ">"
-pause = gets
-#need to create exit for exit command
-#need to create loop for instructions
+
 #computer add ships
 new_game.computer_new_ship(3)
 new_game.computer_new_ship(2)
-puts message_computer_ship_placement
+message_computer_ship_placement
 
 #player adds ships, needs a method to loop
 player_two_ship = gets.chomp.split(" ")
-puts new_game.player_ship_requests(2, player_two_ship)
-puts message_player_three_ship_placement
+new_game.player_ship_requests(2, player_two_ship)
+
+message_player_three_ship_placement
 player_three_ship = gets.chomp.split(" ")
-puts new_game.player_ship_requests(3, player_three_ship)
+#puts new_game.player_ship_request(3, player_three_ship)
 
 #player's turn, needs a method to loop
-new_game.player.player_board.output
-message_player_shoot
-fire_answer = gets.chomp
-new_game.player_shoot(fire_answer)
-new_game.player_output
-message_end_player_turn
-
+until new_game.player_hits == 5 || new_game.computer_hits == 5
+  puts "= COMPUTER SHIPS ="
+  new_game.computer_output
+  message_player_shoot
+  fire_answer = gets.chomp
+  new_game.player_shoot(fire_answer)
+  puts "= COMPUTER SHIPS ="
+  new_game.computer_output
+  message_end_player_turn
+  gets.chomp
 #computer's turn
-new_game.computer_hit_or_miss_inserter
-new_game.computer_output
+  new_game.computer_hit_or_miss_inserter
+  puts "= PLAYER SHIPS ="
+  new_game.player_output
+  puts "Press ENTER for your turn."
+  gets.chomp
+  puts
+end
+
+#no ending sequence

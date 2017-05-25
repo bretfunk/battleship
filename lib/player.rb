@@ -18,14 +18,14 @@ class Player
   end
 
   def ship_hit?(coordinate, board=opponent_board.ship_board)
-    @hit_counter += 1
     board[coordinate[0]][coordinate[1]] == "S"
   end
 
-  def player_shoot(coordinate, board=player_board.game_board)
+  def player_shoot(coordinate, board=opponent_board.game_board)
     if game_board_available?(coordinate)
       if ship_hit?(coordinate)
         @player_shots += 1
+        @hit_counter += 1
         board[coordinate[0]][coordinate[1]] = "H"
         puts "Hit!"
       else
@@ -72,7 +72,7 @@ class Player
     if ship_creator_filter(size, request) && all_coordinates_avaiable?(request)
         ship_inserter(request)
     else
-      p "Not valid coordinates"
+      puts "Not valid coordinates"
     end
   end
 

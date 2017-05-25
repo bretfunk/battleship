@@ -21,7 +21,7 @@ module Interface
   end
 
   def message_computer_ship_placement
-    puts "I have laid out my ships on the grid.\nYou now need to layout your two ships.\nThe first is two units long and the \nsecond is three units long.\nThe grid has A1 at the top left and D4 \nat the bottom right.\n\nEnter the squares for the two-unit ship: \n\n"
+    puts "I have laid out my ships on the grid.\nYou now need to layout your two ships.\nThe first is two units long and the \nsecond is three units long.\nThe grid has A1 at the top left and D4 \nat the bottom right.\n\nEnter the squares for the two-unit ship: \n"
   end
 
   def message_player_three_ship_placement

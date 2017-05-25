@@ -64,6 +64,7 @@ class Computer
     shot = computer_shoot
     if ship_hit?(shot) == true
       @computer_shots += 1
+      @hit_counter += 1
       puts "Hit!"
       board[shot[0]][shot[1]] = "H"
     else

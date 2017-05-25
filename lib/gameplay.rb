@@ -13,7 +13,7 @@ module Gameplay
   end
 
   def computer_shots
-    computer.computer_shots
+    computer.hit_counter
   end
 
   def computer_hits
@@ -27,7 +27,6 @@ module Gameplay
   def computer_output
     computer.computer_board.output
   end
-
 
   def player_output
     player.player_board.output
@@ -52,6 +51,5 @@ module Gameplay
   def player_hits
     player.hit_counter
   end
-
 
 end
